@@ -1,0 +1,20 @@
+{
+  "principalDiagnosis": {
+    "code": "I21.900",
+    "name": "急性心肌梗死"
+  },
+  "otherDiagnoses": [
+    {
+      "code": "I10"
+    }
+  ],
+  "principalProcedure": {
+    "code": "36.0600",
+    "name": "冠状动脉支架植入术"
+  },
+  "otherProcedures": [],
+  "chiefComplaint": "突发胸痛 3 小时",
+  "admissionCondition": {
+    "I21.900": "1"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "ruleId": "IC-011",
+  "purpose": "主要诊断为 T80-T88 系列并发症时应另编码说明（唯一可逐字引用的「另编码」明文）",
+  "pairs": [
+    {
+      "name": "expected-state",
+      "material": "IC-011-compliant.json",
+      "expect": {
+        "ruleId": "IC-011",
+        "count": 0
+      }
+    },
+    {
+      "name": "difference-present",
+      "material": "IC-011-unsafe.json",
+      "expect": {
+        "ruleId": "IC-011",
+        "count": 1
+      }
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "principalDiagnosis": {
+    "code": "A18.1†",
+    "name": "泌尿生殖道结核"
+  },
+  "otherDiagnoses": [
+    {
+      "code": "N51.0*",
+      "name": "男性生殖器官结核"
+    }
+  ],
+  "otherProcedures": [],
+  "chiefComplaint": "突发胸痛 3 小时",
+  "admissionCondition": {}
+}

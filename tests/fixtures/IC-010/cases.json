@@ -1,0 +1,26 @@
+{
+  "ruleId": "IC-010",
+  "configure": {
+    "IC-010": {
+      "requireNames": true
+    }
+  },
+  "pairs": [
+    {
+      "name": "expected-state",
+      "material": "IC-010-compliant.json",
+      "expect": {
+        "ruleId": "IC-010",
+        "count": 0
+      }
+    },
+    {
+      "name": "difference-present",
+      "material": "IC-010-unsafe.json",
+      "expect": {
+        "ruleId": "IC-010",
+        "count": 1
+      }
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "ruleId": "IC-008",
+  "purpose": "主要诊断应与主诉有可识别的字面呼应（只做字面重叠提示，不判断临床对应关系）",
+  "pairs": [
+    {
+      "name": "expected-state",
+      "material": "IC-008-compliant.json",
+      "expect": {
+        "ruleId": "IC-008",
+        "count": 0
+      }
+    },
+    {
+      "name": "difference-present",
+      "material": "IC-008-unsafe.json",
+      "expect": {
+        "ruleId": "IC-008",
+        "count": 1
+      }
+    }
+  ]
+}

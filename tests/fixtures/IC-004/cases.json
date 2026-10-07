@@ -1,0 +1,26 @@
+{
+  "ruleId": "IC-004",
+  "configure": {
+    "IC-004": {
+      "flagAsteriskUse": true
+    }
+  },
+  "pairs": [
+    {
+      "name": "expected-state",
+      "material": "IC-004-compliant.json",
+      "expect": {
+        "ruleId": "IC-004",
+        "count": 0
+      }
+    },
+    {
+      "name": "difference-present",
+      "material": "IC-004-unsafe.json",
+      "expect": {
+        "ruleId": "IC-004",
+        "count": 1
+      }
+    }
+  ]
+}

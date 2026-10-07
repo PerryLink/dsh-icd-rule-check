@@ -1,0 +1,13 @@
+{
+  "principalDiagnosis": {
+    "code": "R07.400",
+    "name": "胸痛"
+  },
+  "otherDiagnoses": [
+    {
+      "code": "I21.900",
+      "name": "急性心肌梗死"
+    }
+  ],
+  "chiefComplaint": "突发心肌梗死样胸痛 3 小时"
+}

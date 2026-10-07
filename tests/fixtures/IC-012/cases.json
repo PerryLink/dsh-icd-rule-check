@@ -1,0 +1,22 @@
+{
+  "ruleId": "IC-012",
+  "purpose": "第十八章症状体征作主要诊断、且另有明确诊断时应复核（原条文以\"存在相关明确诊断\"为前提，本条已收窄判定条件）",
+  "pairs": [
+    {
+      "name": "expected-state",
+      "material": "IC-012-compliant.json",
+      "expect": {
+        "ruleId": "IC-012",
+        "count": 0
+      }
+    },
+    {
+      "name": "difference-present",
+      "material": "IC-012-unsafe.json",
+      "expect": {
+        "ruleId": "IC-012",
+        "count": 1
+      }
+    }
+  ]
+}

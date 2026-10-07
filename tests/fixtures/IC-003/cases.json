@@ -1,0 +1,39 @@
+{
+  "ruleId": "IC-003",
+  "configure": {
+    "IC-003": {
+      "pairs": [
+        {
+          "dagger": "A18.1",
+          "asterisk": "N51.0"
+        },
+        {
+          "dagger": "B37.6",
+          "asterisk": "J17.2"
+        },
+        {
+          "dagger": "E10.3",
+          "asterisk": "H36.0"
+        }
+      ]
+    }
+  },
+  "pairs": [
+    {
+      "name": "expected-state",
+      "material": "IC-003-compliant.json",
+      "expect": {
+        "ruleId": "IC-003",
+        "count": 0
+      }
+    },
+    {
+      "name": "difference-present",
+      "material": "IC-003-unsafe.json",
+      "expect": {
+        "ruleId": "IC-003",
+        "count": 1
+      }
+    }
+  ]
+}

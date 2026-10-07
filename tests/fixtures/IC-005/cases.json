@@ -1,0 +1,36 @@
+{
+  "ruleId": "IC-005",
+  "configure": {
+    "IC-005": {
+      "correspondence": [
+        {
+          "diagnosis": [
+            "I21"
+          ],
+          "procedures": [
+            "36.06",
+            "36.07"
+          ]
+        }
+      ]
+    }
+  },
+  "pairs": [
+    {
+      "name": "expected-state",
+      "material": "IC-005-compliant.json",
+      "expect": {
+        "ruleId": "IC-005",
+        "count": 0
+      }
+    },
+    {
+      "name": "difference-present",
+      "material": "IC-005-unsafe.json",
+      "expect": {
+        "ruleId": "IC-005",
+        "count": 1
+      }
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "principalDiagnosis": {
+    "code": "I21.900",
+    "name": "急性心肌梗死"
+  },
+  "otherDiagnoses": [
+    {
+      "code": "N51.0*",
+      "name": "男性生殖器官结核"
+    }
+  ],
+  "otherProcedures": [],
+  "chiefComplaint": "突发胸痛 3 小时",
+  "admissionCondition": {}
+}

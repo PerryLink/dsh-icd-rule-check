@@ -1,0 +1,295 @@
+# ICD 编码规则校验 规则库
+#
+# 规则数据与代码分离：替换本文件即可切换规则集版本，无需改动 TypeScript。
+#
+# 条款引用纪律（由 shared/ruleset.ts 强制校验）：
+#   - 每条规则必须写全 document / number / clause / excerpt / kind / source，
+#     且 excerpt 必须是逐字摘录，不得改写。
+#   - kind: direct                       条款直接规定了所检查的要求
+#   - kind: derived-from-principle       条款未直接规定，仅能由原则性条款推论（severity 最多 warn）
+#   - kind: institutional-configuration 阈值出自本机构配置（severity 最多 info）
+#
+# ⚠️ 本规则库的设计边界（重要，别改）：
+#   本插件**不做编码查表**，只做**结构性检查**（形式、重复、成对关系、字段齐备）。
+#   原因：查表需要与编码员版本一致的授权编码目录，版本不一致时会产出"看起来很确定"的错误结论。
+#   凡是需要目录支持的检查（合并编码、诊断—手术相容性），一律以**空配置**出厂，
+#   并让它进 skipped，由使用方按自己所用目录填写。
+#
+# ⚠️ 关于「合并编码」的诚实说明（对应任务书的"关键路径风险"）：
+#   本次核查结论：**找不到任何可逐字引用的公开"合并编码"规则清单**。
+#   - 国家医保局与卫健委公开文件中，唯一涉及"需另编码"的明文是
+#     《医疗保障基金结算清单填写规范（试行）》说明一第 8 条（T80-T88），
+#     它**没有"合并编码"这个词**，也没有"当…时应使用合并类目 X"的清单 → 已实现为 IC-011。
+#   - 国卫办医发〔2016〕24号全文检索"另编码""合并编码""剑号""星号""不可分割"**命中 0 次**。
+#   - 《疾病分类与代码国家临床版2.0 **使用说明**》与《ICD-10 **编码规则**》两份文件**均不存在**
+#     （卫健委只发了 xlsx 附件，没有配套使用说明）。
+#   - "合并编码"的定义只出现在病案专业教材与编码员培训材料（C/D 级），不可作逐字依据。
+#   → 因此本规则库**不实现合并编码判定**，只在 IC-005 提供"诊断↔手术对照表"参数化挂点。
+#   不做，是因为做不出可取证的规则；而不是因为做不了。
+#
+# ✅ 星剑号规则已升级为 direct：WHO ICD-10 第二卷指导手册 3.1.3 英文原文
+#   "For coding, the asterisk code must never be used alone." + GB/T 14396-2016 第 4 章符号定义。
+
+plugin: dsh-icd-rule-check
+version: "2026.1"
+
+rules:
+  - id: IC-001
+    title: 诊断编码应符合 ICD-10 形式
+    severity: error
+    basis:
+      document: 《住院病案首页数据填写质量规范（暂行）》
+      number: 国卫办医发〔2016〕24号
+      clause: 第六条
+      excerpt: 疾病诊断编码应当统一使用ICD-10,手术和操作编码应当统一使用ICD-9-CM-3。
+      kind: direct
+      source: http://ywc.jlu.edu.cn/info/1037/1405.htm
+    params:
+      pattern: '^[A-Z][0-9]{2}(\.[0-9A-Z]{1,4})?$'
+    note: >-
+      星剑号（† / *）在形式核对前会被剥离，因此 IC-001 不会因星剑号标记而报差异。
+      本条只做形式核对，**不校验该编码是否存在于某一版本目录中**——那需要与编码员版本一致的授权目录。
+
+  - id: IC-002
+    title: 同一次住院的诊断列表不应重复列出同一编码
+    severity: warn
+    basis:
+      document: 《住院病案首页数据填写质量规范（暂行）》
+      number: 国卫办医发〔2016〕24号
+      clause: 第十九条
+      excerpt: 填写其他诊断时，先填写主要疾病并发症，后填写合并症；先填写病情较重的疾病，后填写病情较轻的疾病；先填写已治疗的疾病，后填写未治疗的疾病。
+      kind: derived-from-principle
+      source: http://ywc.jlu.edu.cn/info/1037/1405.htm
+    note: >-
+      重复编码在本条中按"同一诊断被列两次"处理。未找到明文规定"不得重复列出同一编码"，
+      故封顶 warn；其上位依据是第十九条对填写顺序与不重复列示的要求。
+
+  - id: IC-003
+    title: 星号编码应与对应的剑号编码成对出现
+    severity: error
+    basis:
+      document: 《疾病和有关健康问题的国际统计分类》第十次修订本 第二卷 指导手册
+      number: WHO ICD-10 Volume 2（第二版，2004，ISBN 92 4 154653 0）
+      clause: 3.1.3
+      excerpt: For coding, the asterisk code must never be used alone.
+      kind: direct
+      source: https://iris.who.int/bitstream/handle/10665/246208/9241546530_eng.pdf
+    alsoBasis:
+      - document: 《疾病分类与代码》
+        number: GB/T 14396-2016
+        clause: 第4章 符号 4.1、4.2
+        excerpt: 剑号"†"代表诊断疾病的原因；星号"*"代表该诊断疾病的临床表现。
+        kind: direct
+        source: https://openstd.samr.gov.cn/bzgk/std/newGbInfo?hcno=8127A7785CA677952F9DA062463CBC41
+      - document: 《疾病分类与代码国家临床版 2.0》
+        number: 国卫办医函〔2019〕371号 附件1
+        clause: 主表「主要编码 / 附加编码」两列
+        excerpt: 主表列头为「主要编码 | 附加编码 | 疾病名称」，剑号与星号成对出现在同一行（如 A17.000† 与 G01*）。
+        kind: direct
+        source: http://www.natcm.gov.cn/yizhengsi/zhengcewenjian/2019-04-24/9655.html
+    params:
+      pairs: []
+    note: >-
+      依据为 WHO ICD-10 第二卷指导手册 3.1.3 英文原文（"For coding, the asterisk code
+      must never be used alone."），配套符号定义见 GB/T 14396-2016 第 4 章。
+      这是本规则库中**唯一完全机械化、依据链最完整的判定**：†/* 是 ICD-10 自身符号体系的组成部分，
+      配对关系由官方编码表直接给出，不依赖任何原则性条款的解释，故 severity 为 error。
+      pairs 为剑号↔星号对照表，留空时本条进 skipped。**使用方应优先用
+      《疾病分类与代码国家临床版 2.0》（国卫办医函〔2019〕371号附件1）的
+      「主要编码 / 附加编码」两列生成本表**——该表以 † / * 标记成对关系，官方 xlsx 中有 1117 行含剑号。
+      本插件**不内置任何配对数据**，因为编码目录版本必须由使用方掌握。
+      另注：WHO 原文是"星号不得单独使用"，**不是**"星号不能作主要诊断"；
+      后者是中文病案界对该条的转述，本规则库不采用该表述。
+  - id: IC-004
+    title: 诊断编码使用了星号（*）形式
+    severity: info
+    basis:
+      document: 《住院病案首页数据填写质量规范（暂行）》
+      number: 国卫办医发〔2016〕24号
+      clause: 第六条
+      excerpt: 疾病诊断编码应当统一使用ICD-10,手术和操作编码应当统一使用ICD-9-CM-3。
+      kind: institutional-configuration
+      source: http://ywc.jlu.edu.cn/info/1037/1405.htm
+    params:
+      flagAsteriskUse: false
+    note: >-
+      flagAsteriskUse 默认 false，即本条默认不执行并进 skipped。
+      是否仍使用星号形式取决于本机构所用《疾病分类与代码》版本（国家临床版与医保版对该形式的处理不同），
+      本规则库不代为判断；需要提示时由使用方开启。
+
+  - id: IC-005
+    title: 主要手术操作应与主要诊断相对应
+    severity: warn
+    basis:
+      document: 《住院病案首页数据填写质量规范（暂行）》
+      number: 国卫办医发〔2016〕24号
+      clause: 第二十二条
+      excerpt: 多个术式时，主要手术首先选择与主要诊断相对应的手术。一般是技术难度最大、过程最复杂、风险最高的手术，应当填写在首页手术操作名称栏中第一行。
+      kind: direct
+      source: http://ywc.jlu.edu.cn/info/1037/1405.htm
+    alsoBasis:
+      - document: 《住院病案首页数据填写质量规范（暂行）》
+        number: 国卫办医发〔2016〕24号
+        clause: 第十一条（二）
+        excerpt: 以手术治疗为住院目的的，则选择与手术治疗相一致的疾病作为主要诊断。
+        kind: direct
+        source: http://ywc.jlu.edu.cn/info/1037/1405.htm
+      - document: 《医疗保障基金结算清单填写规范（试行）》
+        number: 医保办发〔2020〕20号
+        clause: 附件1 说明一 4
+        excerpt: 一般情况下，有手术治疗的患者的主要诊断要与主要手术治疗的疾病相一致。
+        kind: direct
+        source: https://www.gov.cn/zhengce/zhengceku/2020-05/15/content_5511919.htm
+    params:
+      correspondence: []
+    note: >-
+      correspondence 留空表示未配置，本条进 skipped。对照关系必须由使用方按本机构所用编码目录填写，
+      形如 correspondence: [{ diagnosis: [I21], procedures: [36.06, 36.07] }]；procedures 为空列表表示该组不应有主要手术。
+      本规则库**不硬编码任何诊断—手术对照关系**：那需要授权目录，且版本不一致会产出错误结论。
+      依据已升级为 direct：24号文第十一条（二）、第二十二条与医保办发〔2020〕20号说明一第4条
+      三处明文都要求主要诊断与主要手术相一致。
+
+  - id: IC-011
+    title: 主要诊断为 T80-T88 系列并发症时应另编码说明
+    severity: error
+    basis:
+      document: 《医疗保障基金结算清单填写规范（试行）》
+      number: 医保办发〔2020〕20号
+      clause: 附件1 说明一 8
+      excerpt: 当住院是为了治疗手术和其它治疗的并发症时，该并发症作为主要诊断。当该并发症被编在T80-T88系列时，由于编码在描述并发症方面缺少必要的特性，需要另编码对该并发症进行说明。
+      kind: direct
+      source: https://www.gov.cn/zhengce/zhengceku/2020-05/15/content_5511919.htm
+    params:
+      articles: [T80, T81, T82, T83, T84, T85, T86, T87, T88]
+    note: >-
+      这是**唯一可逐字引用的"另编码"明文**（本插件的核查确认：国卫办医发〔2016〕24号全文
+      检索"另编码""合并编码""剑号""星号""不可分割"命中 0 次）。
+      条文只要求"需要另编码对该并发症进行说明"，**未规定具体应另编哪些码**，
+      因此本条只核对：主要诊断落在 T80-T88 时，诊断列表中是否存在除主要诊断以外的其他诊断。
+      是否存在、应为哪一条，须由编码员按目录判断——本条不代为决定。
+
+  - id: IC-006
+    title: 入院病情为「无」的诊断原则上不应作为主要诊断
+    severity: warn
+    basis:
+      document: 《医疗保障基金结算清单填写规范（试行）》
+      number: 医保办发〔2020〕20号
+      clause: 附件1 说明一 3
+      excerpt: 原则上"入院病情"为"4"的诊断不应作为主要诊断。
+      kind: derived-from-principle
+      source: https://www.gov.cn/zhengce/zhengceku/2020-05/15/content_5511919.htm
+    params:
+      flagCode: '4'
+    note: >-
+      该条原文以"除下列规则中特殊约定的要求外……原则上"开头，本身留有例外，故本条封顶 warn。
+      材料未提供 admissionCondition 时本条进 skipped，不会静默通过。
+
+  - id: IC-007
+    title: 手术操作编码应符合 ICD-9-CM-3 形式
+    severity: error
+    basis:
+      document: 《住院病案首页数据填写质量规范（暂行）》
+      number: 国卫办医发〔2016〕24号
+      clause: 第六条
+      excerpt: 疾病诊断编码应当统一使用ICD-10,手术和操作编码应当统一使用ICD-9-CM-3。
+      kind: direct
+      source: http://ywc.jlu.edu.cn/info/1037/1405.htm
+    params:
+      pattern: '^[0-9]{2}(\.[0-9]{1,4})?$'
+    note: 同 IC-001：只做形式核对，不校验编码是否存在于某一版本目录中。
+
+  - id: IC-008
+    title: 主要诊断应与主诉有可识别的字面呼应
+    severity: info
+    basis:
+      document: 《住院病案首页数据填写质量规范（暂行）》
+      number: 国卫办医发〔2016〕24号
+      clause: 第十条
+      excerpt: 主要诊断一般是患者住院的理由，原则上应选择本次住院对患者健康危害最大、消耗医疗资源最多、住院时间最长的疾病诊断。
+      kind: derived-from-principle
+      source: http://ywc.jlu.edu.cn/info/1037/1405.htm
+    params:
+      minOverlap: 2
+    note: >-
+      本条只做**字面重叠**提示：主诉与诊断名称之间找不到任何两字以上的公共片段时提示人工核对。
+      临床对应关系是编码判断，不是字符串操作，故封顶 info。
+      未提供 chiefComplaint 或诊断只有编码没有名称时，本条进 skipped。
+
+  - id: IC-009
+    title: 应填写主要诊断
+    severity: error
+    basis:
+      document: 《住院病案首页数据填写质量规范（暂行）》
+      number: 国卫办医发〔2016〕24号
+      clause: 第十条
+      excerpt: 主要诊断一般是患者住院的理由，原则上应选择本次住院对患者健康危害最大、消耗医疗资源最多、住院时间最长的疾病诊断。
+      kind: direct
+      source: http://ywc.jlu.edu.cn/info/1037/1405.htm
+    alsoBasis:
+      - document: 《住院病案首页数据质量管理与控制指标（2016版）》
+        number: 国卫办医发〔2016〕24号
+        clause: 附件1 注
+        excerpt: 注：必填栏不能为空项，没有可填写内容时填写"-"
+        kind: direct
+        source: http://hncis.hnwsjk.cn/bingan/upload/files/2024/6/3813adce8fc5b87f.pdf
+    params:
+      requirePrincipalDiagnosis: true
+    note: >-
+      ⚠️ **主依据已于 2026-10-07 调换**（见 rules/evidence/clause-verification.md）：
+      原先主 `basis` 是**附件1 表头注释**，而该附件是 PDF、**本环境读不了**；
+      **第十条**（《规范》正文，**已逐字核对**）直接要求"主要诊断一般是患者住院的理由"，
+      故改为主依据 —— **本条的 error 级这才有可核对的条文支撑**。
+      附件1 必填项列表（序号30「（主要出院诊断）名称」为必填）与表头注释移入 `alsoBasis` 作为佐证，
+      **其措辞仍未核对**（PDF）。
+      本条只核对"是否填写"，不判断选择是否正确——选择正确性原则见第十条，需临床与编码员复核。
+
+  - id: IC-010
+    title: 诊断应同时填写规范的诊断名称
+    severity: info
+    basis:
+      document: 《住院病案首页数据填写质量规范（暂行）》
+      number: 国卫办医发〔2016〕24号
+      clause: 第五条
+      excerpt: 住院病案首页应当使用规范的疾病诊断和手术操作名称。诊断依据应在病历中可追溯。
+      kind: institutional-configuration
+      source: http://ywc.jlu.edu.cn/info/1037/1405.htm
+    alsoBasis:
+      - document: 《医疗保障基金结算清单填写规范（试行）》
+        number: 医保办发〔2020〕20号
+        clause: 一（五）
+        excerpt: 填写疾病诊断、手术及操作项目时应当同时填写名称及代码。
+        kind: direct
+        source: https://www.gov.cn/zhengce/zhengceku/2020-05/15/content_5511919.htm
+    params:
+      requireNames: false
+    note: >-
+      requireNames 默认 false，本条默认不执行并进 skipped：医保结算清单侧有"同时填写名称及代码"的明文，
+      但病案首页侧的口径由本机构上报要求决定，故由使用方显式开启。
+
+  - id: IC-012
+    title: 第十八章症状体征不应作为主要诊断（存在相关明确诊断时）
+    severity: warn
+    basis:
+      document: 《医疗保障基金结算清单填写规范（试行）》
+      number: 医保办发〔2020〕20号
+      clause: 附件1 说明一 10
+      excerpt: 当症状、体征和不确定情况有相关的明确诊断时，该诊断应作为主要诊断。而ICD-10第十八章中的症状、体征和不确定情况则不能作为主要诊断。
+      kind: derived-from-principle
+      source: https://www.gov.cn/zhengce/zhengceku/2020-05/15/content_5511919.htm
+    alsoBasis:
+      - document: 《住院病案首页数据填写质量规范（暂行）》
+        number: 国卫办医发〔2016〕24号
+        clause: 第十一条（四）
+        excerpt: 因某种症状、体征或检查结果异常入院，出院时诊断仍不明确，则以该症状、体征或异常的检查结果作为主要诊断。
+        kind: direct
+        source: http://ywc.jlu.edu.cn/info/1037/1405.htm
+    params:
+      chapter18Prefix: R
+    note: >-
+      ⚠️ 本条含一个**条件判断，本插件无法自动完成**：原条文的"不能"以"当……有相关的明确诊断时"为前提，
+      而"是否存在相关明确诊断"需要临床判断。因此本条的判定条件被收窄为：
+      **主要诊断落在第十八章（R00-R99）、且诊断列表中另有非第十八章的明确诊断**时提示复核。
+      两个条件都不满足时进 skipped。依据为医保结算清单口径；24号文第十一条（四）明确
+      "出院时诊断仍不明确"时用症状作主要诊断是允许的，故本条封顶 warn，绝不阻断。
+
+disabled: []

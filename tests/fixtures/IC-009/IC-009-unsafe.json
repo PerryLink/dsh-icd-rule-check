@@ -1,0 +1,11 @@
+{
+  "otherDiagnoses": [
+    {
+      "code": "I10",
+      "name": "高血压"
+    }
+  ],
+  "otherProcedures": [],
+  "chiefComplaint": "血压升高",
+  "admissionCondition": {}
+}

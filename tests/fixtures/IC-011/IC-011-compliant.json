@@ -1,0 +1,13 @@
+{
+  "principalDiagnosis": {
+    "code": "T82.700",
+    "name": "心脏瓣膜置换术后并发症"
+  },
+  "otherDiagnoses": [
+    {
+      "code": "I50.900",
+      "name": "心力衰竭"
+    }
+  ],
+  "chiefComplaint": "心脏瓣膜置换术后出现心力衰竭"
+}
