@@ -60,8 +60,7 @@ until configured, so an unfilled table can never read as "nothing wrong".
 ## Install
 
 ```sh
-pnpm pack
-dsh plugin --profile <name> add ./dsh-icd-rule-check-0.1.0.tgz
+dsh plugin --profile <name> add dsh-icd-rule-check
 dsh --profile <name> --dump-config | grep 'dsh-icd-rule-check'
 ```
 

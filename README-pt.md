@@ -42,8 +42,7 @@ A tabela de regras, os campos e o comportamento detalhado estão em [README.md](
 ## Install
 
 ```sh
-pnpm pack
-dsh plugin --profile <name> add ./*.tgz
+dsh plugin --profile <name> add dsh-icd-rule-check
 dsh --profile <name> --dump-config | grep 'dsh-icd-rule-check'
 ```
 
