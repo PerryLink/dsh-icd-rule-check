@@ -66,7 +66,9 @@ const untraceable = []
 let checked = 0
 let placeholders = 0
 for (const block of ruleBlocks(readFileSync(packPath, 'utf8'))) {
-  const ruleId = fieldOf(block, 'id')
+  // The id line is "  - id: XX-001", so the list dash sits between the
+  // indentation and the key; a plain "^s+id:" never matches it.
+  const ruleId = (/^s*-s+id:s*(S+)/m.exec(block) ?? [])[1] ?? '?'
   const excerpt = fieldOf(block, 'excerpt')
   if (excerpt === '' || isPlaceholder(excerpt)) {
     placeholders++
