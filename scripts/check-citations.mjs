@@ -16,10 +16,21 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)))
-const pkg = JSON.parse(readFileSync(path.join(root, 'package.json'), 'utf8'))
-const packPath = path.join(root, 'rules', `${pkg.name.replace(/^dsh-/, '')}.yaml`)
-const evidenceDir = path.join(root, 'rules', 'evidence')
-const baselinePath = path.join(root, 'rules', 'citations-baseline.json')
+const rulesDir = path.join(root, 'rules')
+const evidenceDir = path.join(rulesDir, 'evidence')
+const baselinePath = path.join(rulesDir, 'citations-baseline.json')
+
+// Discover the pack instead of deriving its name from the package: the family
+// convention is "package name minus dsh-", but not every pack follows it
+// (dsh-nurse-record-check ships rules/nurse-record.yaml).
+const packPath = readdirSync(rulesDir)
+  .filter((f) => f.endsWith('.yaml') || f.endsWith('.yml'))
+  .map((f) => path.join(rulesDir, f))
+  .sort()[0]
+if (packPath === undefined) {
+  console.error('citations: no rule pack found under rules/')
+  process.exit(2)
+}
 
 const normalise = (text) =>
   text
