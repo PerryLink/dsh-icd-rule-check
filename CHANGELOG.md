@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.2.3
+
+- Correct the severity and basis-kind cells in `## What it does` so they
+  match the rule pack. The upgrade pass of 2026-10-07 changed the packs and
+  left this table showing the previous basis kind, so the README disagreed
+  with the plugin about what a rule does.
+
 ## 0.2.2
 
 - Rework the README first screen. The H1 now names what the plugin checks rather

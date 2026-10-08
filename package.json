@@ -1,6 +1,6 @@
 {
   "name": "dsh-icd-rule-check",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "ICD 合并编码与星剑号配对提示（依据 GB/T 14396-2016 与公开的 ICD 使用说明，仅提示差异，不作出定性结论）",
   "type": "module",
   "main": "lib/index.mjs",

@@ -69,9 +69,9 @@ whose every finding names the clause it came from.
 |---|---|---|---|
 | `IC-001` | every diagnosis code has ICD-10 form (markers stripped first) | error | direct |
 | `IC-002` | the same diagnosis code is not listed twice | warn | principle |
-| `IC-003` | an asterisk code has its dagger partner in the same episode | warn | principle |
+| `IC-003` | an asterisk code has its dagger partner in the same episode | error | direct |
 | `IC-004` | a diagnosis still uses the asterisk form (switch, off by default) | info | local |
-| `IC-005` | the principal procedure groups with the principal diagnosis (table, off by default) | warn | principle |
+| `IC-005` | the principal procedure groups with the principal diagnosis (table, off by default) | warn | direct |
 | `IC-006` | a diagnosis flagged "not present on admission" is not the principal diagnosis | warn | principle |
 | `IC-007` | every procedure code has ICD-9-CM-3 form | error | direct |
 | `IC-008` | the chief complaint and the diagnosis names share a literal fragment | info | principle |
@@ -80,7 +80,6 @@ whose every finding names the clause it came from.
 
 Every switch that depends on a code catalogue is **off** by default and reports itself in `skipped`
 until configured, so an unfilled table can never read as "nothing wrong".
-
 ## Install
 
 ```sh
