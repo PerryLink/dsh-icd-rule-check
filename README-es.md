@@ -1,4 +1,28 @@
-# dsh-icd-rule-check
+# dsh-icd-rule-check — Verificación de las reglas de codificación ICD de un episodio de hospitalización: avisos de código combinado y de emparejamiento daga/asterisco
+
+`dsh-icd-rule-check` lee un episodio de hospitalización codificado —el diagnóstico principal, los otros diagnósticos, el procedimiento principal, los otros procedimientos y los códigos de circunstancia de ingreso— y comprueba la estructura y las referencias internas de ese mismo episodio: que cada código de diagnóstico tenga forma ICD-10 y cada código de procedimiento forma ICD-9-CM-3 (los marcadores † / * se retiran antes de la comprobación de forma), que el mismo código de diagnóstico no se liste dos veces, que un código de asterisco tenga su código de daga pareja en el mismo episodio, que haya un diagnóstico principal y que estén rellenos los campos que cada comprobación necesita. Cada diferencia cita la cláusula de la que procede, y toda comprobación que no pudo ejecutarse figura en `skipped` en lugar de pasar en silencio. No busca ningún código en un catálogo.
+
+## Qué responde
+
+| Usted pregunta | Qué responde |
+|---|---|
+| La exportación guarda el código de diagnóstico como `A18.1†`. ¿La daga hará que salte la comprobación de forma? | No. `IC-001` retira los marcadores de daga y asterisco († / *) antes de examinar el código, así que el marcador por sí solo nunca produce una diferencia. Solo comprueba la forma del código: un código bien formado que su catálogo no contenga realmente pasa igualmente, porque verificarlo exige un catálogo licenciado de la misma versión que usa el codificador. |
+| El campo del diagnóstico principal está vacío. ¿Qué se informa? | `IC-009` informa de que el registro no lleva diagnóstico principal e indica que hay que rellenarlo. Su límite: comprueba solo que el campo esté relleno, no que el diagnóstico elegido como principal sea el correcto; esa elección es del codificador y la regla no la hace. |
+| Hay un código de asterisco en la lista y ningún código de daga que le corresponda. | `IC-003` informa del código de asterisco cuando el código de daga que le asigna la tabla de emparejamiento no aparece en el mismo episodio. Es la determinación más mecánica del paquete y necesita su propia tabla en `pairs`; con `pairs` vacío la regla informa de que no pudo ejecutarse en lugar de pasar en silencio. Su límite es el emparejamiento mismo: el paquete no adopta la lectura del ámbito chino del historial clínico según la cual un código de asterisco no puede ser el diagnóstico principal. |
+| El mismo código de diagnóstico aparece listado dos veces. | `IC-002` informa del código repetido y lo trata como el mismo diagnóstico listado dos veces. Está limitada a `warn`: no se encontró ninguna cláusula que prohíba la repetición con esas palabras, así que su base es un principio y señala la fila para revisión en lugar de bloquear. |
+| El diagnóstico principal es una complicación de la serie T82 y no hay ningún otro diagnóstico. | `IC-011` informa de esa fila. Con un diagnóstico principal en la serie T80-T88 solo pregunta si existe algún otro diagnóstico además del principal: la cláusula exige un código adicional que describa la complicación, pero no dice cuál, así que la regla no lo elige; eso corresponde al codificador y al catálogo en uso. |
+| `IC-005` nunca informa de nada en nuestra exportación, ¿significa que el procedimiento principal concuerda con el diagnóstico principal? | No. `IC-005` se distribuye con su tabla `correspondence` vacía, de modo que se declara en `skipped` con el motivo de que la tabla no está configurada; una lista de diferencias vacía ahí no es un aprobado. Rellene `correspondence` con sus propias agrupaciones diagnóstico→procedimiento —una lista `procedures` vacía significa que ese grupo no debe llevar procedimiento principal— y la regla empieza a comparar. |
+
+## Normas que sigue
+
+| Documento | Número | Reglas que lo citan |
+|---|---|---|
+| 《住院病案首页数据填写质量规范（暂行）》 | 国卫办医发〔2016〕24号 | IC-001, IC-002, IC-004, IC-005, IC-007, IC-008, IC-009, IC-010, IC-012 |
+| 《疾病和有关健康问题的国际统计分类》第十次修订本 第二卷 指导手册 | WHO ICD-10 Volume 2（第二版，2004，ISBN 92 4 154653 0） | IC-003 |
+| 《疾病分类与代码》 | GB/T 14396-2016 | IC-003 |
+| 《疾病分类与代码国家临床版 2.0》 | 国卫办医函〔2019〕371号 附件1 | IC-003 |
+| 《医疗保障基金结算清单填写规范（试行）》 | 医保办发〔2020〕20号 | IC-005, IC-011, IC-006, IC-010, IC-012 |
+| 《住院病案首页数据质量管理与控制指标（2016版）》 | 国卫办医发〔2016〕24号 | IC-009 |
 
 **Boundary:** this plugin performs **structural** checks on the codes of one inpatient episode — code
 form, duplicates, dagger/asterisk pairing, field completeness — and reports literal differences against

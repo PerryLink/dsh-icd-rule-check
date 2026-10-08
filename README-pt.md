@@ -1,4 +1,28 @@
-# dsh-icd-rule-check
+# dsh-icd-rule-check — Verificação das regras de codificação ICD de um episódio de internamento: avisos de código combinado e de emparelhamento punhal/asterisco
+
+`dsh-icd-rule-check` lê um episódio de internamento codificado —o diagnóstico principal, os outros diagnósticos, o procedimento principal, os outros procedimentos e os códigos de circunstância de admissão— e verifica a estrutura e as referências internas desse mesmo episódio: se cada código de diagnóstico tem forma ICD-10 e cada código de procedimento forma ICD-9-CM-3 (os marcadores † / * são retirados antes da verificação de forma), se o mesmo código de diagnóstico não é listado duas vezes, se um código de asterisco tem o seu código de punhal par no mesmo episódio, se existe um diagnóstico principal e se estão preenchidos os campos de que cada verificação precisa. Cada diferença cita a cláusula de onde vem, e toda a verificação que não pôde ser executada consta em `skipped` em vez de passar em silêncio. Não procura nenhum código num catálogo.
+
+## O que ele responde
+
+| Você pergunta | O que ele responde |
+|---|---|
+| A exportação guarda o código de diagnóstico como `A18.1†`. O punhal vai fazer disparar a verificação de forma? | Não. `IC-001` retira os marcadores de punhal e asterisco († / *) antes de examinar o código, por isso o marcador sozinho nunca produz uma diferença. Verifica apenas a forma do código: um código bem formado que o seu catálogo não contenha realmente passa à mesma, porque verificar isso exige um catálogo licenciado da mesma versão que o codificador usa. |
+| O campo do diagnóstico principal está vazio. O que é reportado? | `IC-009` reporta que o registo não traz diagnóstico principal e indica que é preciso preenchê-lo. O seu limite: verifica apenas que o campo está preenchido, não que o diagnóstico escolhido como principal seja o correto; essa escolha é do codificador e a regra não a faz. |
+| Há um código de asterisco na lista e nenhum código de punhal correspondente. | `IC-003` reporta o código de asterisco quando o código de punhal que a tabela de emparelhamento lhe atribui não aparece no mesmo episódio. É a determinação mais mecânica do pacote e precisa da sua própria tabela em `pairs`; com `pairs` vazio a regra reporta que não pôde ser executada em vez de passar em silêncio. O seu limite é o próprio emparelhamento: o pacote não adota a leitura do meio chinês do registo clínico segundo a qual um código de asterisco não pode ser o diagnóstico principal. |
+| O mesmo código de diagnóstico aparece listado duas vezes. | `IC-002` reporta o código repetido e trata-o como o mesmo diagnóstico listado duas vezes. Está limitada a `warn`: não foi encontrada nenhuma cláusula que proíba a repetição com essas palavras, por isso a sua base é um princípio e assinala a linha para revisão em vez de bloquear. |
+| O diagnóstico principal é uma complicação da série T82 e não há mais nenhum diagnóstico. | `IC-011` reporta essa linha. Com um diagnóstico principal na série T80-T88 pergunta apenas se existe algum outro diagnóstico além do principal: a cláusula exige um código adicional que descreva a complicação, mas não diz qual, por isso a regra não o escolhe; isso pertence ao codificador e ao catálogo em uso. |
+| O `IC-005` nunca reporta nada na nossa exportação — isso significa que o procedimento principal corresponde ao diagnóstico principal? | Não. O `IC-005` é distribuído com a sua tabela `correspondence` vazia, pelo que se declara em `skipped` com o motivo de a tabela não estar configurada; uma lista de diferenças vazia aí não é uma aprovação. Preencha `correspondence` com os seus próprios agrupamentos diagnóstico→procedimento —uma lista `procedures` vazia significa que esse grupo não deve ter procedimento principal— e a regra começa a comparar. |
+
+## Normas que segue
+
+| Documento | Número | Regras que o citam |
+|---|---|---|
+| 《住院病案首页数据填写质量规范（暂行）》 | 国卫办医发〔2016〕24号 | IC-001, IC-002, IC-004, IC-005, IC-007, IC-008, IC-009, IC-010, IC-012 |
+| 《疾病和有关健康问题的国际统计分类》第十次修订本 第二卷 指导手册 | WHO ICD-10 Volume 2（第二版，2004，ISBN 92 4 154653 0） | IC-003 |
+| 《疾病分类与代码》 | GB/T 14396-2016 | IC-003 |
+| 《疾病分类与代码国家临床版 2.0》 | 国卫办医函〔2019〕371号 附件1 | IC-003 |
+| 《医疗保障基金结算清单填写规范（试行）》 | 医保办发〔2020〕20号 | IC-005, IC-011, IC-006, IC-010, IC-012 |
+| 《住院病案首页数据质量管理与控制指标（2016版）》 | 国卫办医发〔2016〕24号 | IC-009 |
 
 **Boundary:** this plugin performs **structural** checks on the codes of one inpatient episode — code
 form, duplicates, dagger/asterisk pairing, field completeness — and reports literal differences against

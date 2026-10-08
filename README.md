@@ -1,4 +1,28 @@
-# dsh-icd-rule-check
+# dsh-icd-rule-check — ICD coding rule check for one coded inpatient episode: combined-code and dagger/asterisk pairing hints
+
+`dsh-icd-rule-check` reads one coded inpatient episode — the principal diagnosis, the other diagnoses, the principal procedure, the other procedures and the admission-condition codes — and checks that episode's own structure and cross-references: that every diagnosis code has ICD-10 form and every procedure code ICD-9-CM-3 form (the † / * markers are stripped before the form test), that the same diagnosis code is not listed twice, that an asterisk code has its dagger partner in the same episode, that a principal diagnosis is present, and that the fields each check needs are filled. Every difference names the clause it came from, and every check that could not run is listed in `skipped` rather than passing silently. It never looks a code up in a catalogue.
+
+## What it answers
+
+| You ask | What it answers |
+|---|---|
+| Our export stores the diagnosis code as `A18.1†`. Will the dagger make the form check fire? | No. `IC-001` strips the dagger and asterisk markers († / *) before it tests the code, so the marker alone never produces a finding. It checks the code's form only: a well-formed code that your catalogue does not actually contain still passes, because verifying that needs a licensed catalogue of the same version the coder uses. |
+| The principal diagnosis field is empty. What is reported? | `IC-009` reports that the record carries no principal diagnosis and asks for it to be filled in. Its limit is that it checks only whether the field is filled, not whether the diagnosis chosen as principal is the right one — that choice belongs to the coder, and the rule does not make it. |
+| There is an asterisk code in the list and no dagger code to go with it. | `IC-003` reports the asterisk code when the dagger code the pairing table assigns to it is absent from the same episode. It is the pack's most mechanical determination, and it needs your own table in `pairs`; with `pairs` empty the rule reports that it could not run instead of passing silently. Its limit is the pairing itself: the pack does not adopt the reading, common in Chinese medical-record practice, that an asterisk code may not be the principal diagnosis. |
+| The same diagnosis code is listed twice. | `IC-002` reports the repeated code, treating it as the same diagnosis listed twice. It is capped at `warn`: no clause was found that forbids repetition in those words, so its basis is a principle and it points the row out for review instead of blocking. |
+| The principal diagnosis is a T82 complication and no other diagnosis is listed. | `IC-011` reports that row. For a principal diagnosis in the T80-T88 series it asks only whether any other diagnosis is present at all: the clause requires an additional code to describe the complication but does not say which one, so the rule does not choose it — that belongs to the coder and to the catalogue in use. |
+| `IC-005` never reports anything on our export — does that mean the principal procedure matches the principal diagnosis? | No. `IC-005` ships with its `correspondence` table empty, so it declares itself in `skipped` with the reason that the table is not configured; an empty finding list there is not a pass. Fill `correspondence` with your own diagnosis→procedure groupings — an empty `procedures` list means that group should carry no principal procedure — and the rule starts comparing. |
+
+## Standards it follows
+
+| Document | Number | Cited by rules |
+|---|---|---|
+| 《住院病案首页数据填写质量规范（暂行）》 | 国卫办医发〔2016〕24号 | IC-001, IC-002, IC-004, IC-005, IC-007, IC-008, IC-009, IC-010, IC-012 |
+| 《疾病和有关健康问题的国际统计分类》第十次修订本 第二卷 指导手册 | WHO ICD-10 Volume 2（第二版，2004，ISBN 92 4 154653 0） | IC-003 |
+| 《疾病分类与代码》 | GB/T 14396-2016 | IC-003 |
+| 《疾病分类与代码国家临床版 2.0》 | 国卫办医函〔2019〕371号 附件1 | IC-003 |
+| 《医疗保障基金结算清单填写规范（试行）》 | 医保办发〔2020〕20号 | IC-005, IC-011, IC-006, IC-010, IC-012 |
+| 《住院病案首页数据质量管理与控制指标（2016版）》 | 国卫办医发〔2016〕24号 | IC-009 |
 
 **Boundary:** this plugin performs **structural** checks on the codes of one inpatient episode — code
 form, duplicates, dagger/asterisk pairing, field completeness — and reports literal differences against
