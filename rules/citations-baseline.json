@@ -1,0 +1,12 @@
+{
+  "note": "Excerpt segments that are not yet traceable to this repository's rules/evidence/ record. The check:citations gate fails on anything new and on any entry that has become traceable, so this list can only shrink.",
+  "untraceable": [
+    "IC-001:9928a192b59d",
+    "IC-002:943159ffdf9b",
+    "IC-003:f10e33ea9c79",
+    "IC-004:9928a192b59d",
+    "IC-005:969fd78d69f1",
+    "IC-007:9928a192b59d",
+    "IC-010:26dc1725634d"
+  ]
+}

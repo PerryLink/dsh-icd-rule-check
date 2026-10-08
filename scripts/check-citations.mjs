@@ -1,0 +1,103 @@
+#!/usr/bin/env node
+// Machine enforcement of the rule every pack states in its own header: an
+// excerpt must be a verbatim quotation, so it has to be findable in this
+// repository's own rules/evidence/ record of what was obtained.
+//
+// Segments are split on the ellipsis, because legal citation joins two
+// non-adjacent passages of the same document that way - the ellipsis is a
+// declared gap and each segment on either side must still be verbatim.
+//
+// rules/citations-baseline.json records what is not traceable today. The gate
+// fails on a new untraceable segment, and also on a baseline entry that has
+// become traceable, so the baseline can only ever shrink.
+import { createHash } from 'node:crypto'
+import { existsSync, readFileSync, readdirSync } from 'node:fs'
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
+
+const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)))
+const pkg = JSON.parse(readFileSync(path.join(root, 'package.json'), 'utf8'))
+const packPath = path.join(root, 'rules', `${pkg.name.replace(/^dsh-/, '')}.yaml`)
+const evidenceDir = path.join(root, 'rules', 'evidence')
+const baselinePath = path.join(root, 'rules', 'citations-baseline.json')
+
+const normalise = (text) =>
+  text
+    .replace(/[\s\u3000]/g, '')
+    .replace(/[，。、；：？！“”‘’（）《》〈〉【】·—…*#`~,.;:?!"'()<>[\]\-_/\\|]/g, '')
+
+const isPlaceholder = (excerpt) => /未取得|不伪造|待填写|占位/.test(excerpt)
+const keyOf = (ruleId, segment) =>
+  `${ruleId}:${createHash('sha256').update(normalise(segment)).digest('hex').slice(0, 12)}`
+
+const segmentsOf = (excerpt) =>
+  excerpt
+    .split(/…+|\.{3,}|。。。+/)
+    .map((s) => s.trim())
+    .filter((s) => normalise(s).length >= 8)
+
+function ruleBlocks(text) {
+  const lines = text.split(/\r?\n/)
+  const blocks = []
+  let cur = null
+  for (const line of lines) {
+    if (/^\s*-\s+id:\s/.test(line)) {
+      if (cur) blocks.push(cur)
+      cur = [line]
+    } else if (cur) cur.push(line)
+  }
+  if (cur) blocks.push(cur)
+  return blocks.map((b) => b.join('\n'))
+}
+const fieldOf = (block, name) => {
+  const m = new RegExp(`^\\s+${name}:\\s*(.*)$`, 'm').exec(block)
+  return m ? m[1].trim() : ''
+}
+
+let haystack = ''
+if (existsSync(evidenceDir)) {
+  for (const file of readdirSync(evidenceDir).filter((f) => f.endsWith('.md'))) {
+    haystack += readFileSync(path.join(evidenceDir, file), 'utf8')
+  }
+}
+const H = normalise(haystack)
+
+const untraceable = []
+let checked = 0
+let placeholders = 0
+for (const block of ruleBlocks(readFileSync(packPath, 'utf8'))) {
+  const ruleId = fieldOf(block, 'id')
+  const excerpt = fieldOf(block, 'excerpt')
+  if (excerpt === '' || isPlaceholder(excerpt)) {
+    placeholders++
+    continue
+  }
+  for (const segment of segmentsOf(excerpt)) {
+    checked++
+    if (!H.includes(normalise(segment))) untraceable.push(keyOf(ruleId, segment))
+  }
+}
+
+const baseline = existsSync(baselinePath)
+  ? JSON.parse(readFileSync(baselinePath, 'utf8')).untraceable ?? []
+  : []
+const baselineSet = new Set(baseline)
+const current = new Set(untraceable)
+
+const added = untraceable.filter((k) => !baselineSet.has(k))
+const stale = baseline.filter((k) => !current.has(k))
+
+console.log(`citations: ${checked} segments checked, ${placeholders} placeholders, ${untraceable.length} untraceable, baseline ${baseline.length}`)
+
+if (added.length > 0) {
+  console.error('')
+  console.error('NEW untraceable excerpts - quote them verbatim in rules/evidence/ first:')
+  for (const k of added) console.error(`  ${k}`)
+}
+if (stale.length > 0) {
+  console.error('')
+  console.error('baseline entries that are now traceable - regenerate rules/citations-baseline.json:')
+  for (const k of stale) console.error(`  ${k}`)
+}
+if (added.length > 0 || stale.length > 0) process.exit(1)
+console.log('citations ok: every quotation is accounted for')
