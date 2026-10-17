@@ -4,6 +4,13 @@
 
 `dsh-icd-rule-check` lê um episódio de internamento codificado —o diagnóstico principal, os outros diagnósticos, o procedimento principal, os outros procedimentos e os códigos de circunstância de admissão— e verifica a estrutura e as referências internas desse mesmo episódio: se cada código de diagnóstico tem forma ICD-10 e cada código de procedimento forma ICD-9-CM-3 (os marcadores † / * são retirados antes da verificação de forma), se o mesmo código de diagnóstico não é listado duas vezes, se um código de asterisco tem o seu código de punhal par no mesmo episódio, se existe um diagnóstico principal e se estão preenchidos os campos de que cada verificação precisa. Cada diferença cita a cláusula de onde vem, e toda a verificação que não pôde ser executada consta em `skipped` em vez de passar em silêncio. Não procura nenhum código num catálogo.
 
+## Install
+
+```sh
+dsh plugin --profile <name> add dsh-icd-rule-check
+dsh --profile <name> --dump-config | grep 'dsh-icd-rule-check'
+```
+
 ## Como é a saída
 
 ![Terminal demo of dsh-icd-rule-check: real output over its IC-001 fixture](https://raw.githubusercontent.com/PerryLink/dsh-icd-rule-check/main/docs/assets/dsh-icd-rule-check-hero.png)
@@ -72,13 +79,6 @@ confident nonsense.
 ## What it does
 
 A tabela de regras, os campos e o comportamento detalhado estão em [README.md](README.md#what-it-does) (versão principal em inglês). O plugin apenas lista divergências literais frente às cláusulas citadas e indica em `skipped` cada verificação que não pôde ser executada.
-
-## Install
-
-```sh
-dsh plugin --profile <name> add dsh-icd-rule-check
-dsh --profile <name> --dump-config | grep 'dsh-icd-rule-check'
-```
 
 ## Configuration
 

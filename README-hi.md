@@ -4,6 +4,13 @@
 
 `dsh-icd-rule-check` एक कूटबद्ध इनपेशेंट प्रकरण पढ़ता है — मुख्य निदान, अन्य निदान, मुख्य शल्य-प्रक्रिया, अन्य शल्य-प्रक्रियाएँ और प्रवेश-स्थिति (admission condition) कूट — और उसी प्रकरण की संरचना तथा आंतरिक संबंधों की जाँच करता है: क्या प्रत्येक निदान कूट ICD-10 रूप में है और प्रत्येक शल्य-प्रक्रिया कूट ICD-9-CM-3 रूप में (रूप-जाँच से पहले † / * चिह्न हटा दिए जाते हैं), क्या वही निदान कूट दो बार सूचीबद्ध नहीं है, क्या किसी एस्टरिस्क कूट का उसका डैगर साथी उसी प्रकरण में मौजूद है, क्या मुख्य निदान भरा गया है, और प्रत्येक जाँच के लिए आवश्यक क्षेत्र भरे हैं या नहीं। प्रत्येक अंतर के साथ उसका आधार-खंड दर्ज होता है, और जो जाँच चल नहीं सकी वह चुपचाप पास होने के बजाय `skipped` में दर्ज होती है। यह किसी कूट-सूची में कूट नहीं खोजता।
 
+## Install
+
+```sh
+dsh plugin --profile <name> add dsh-icd-rule-check
+dsh --profile <name> --dump-config | grep 'dsh-icd-rule-check'
+```
+
 ## आउटपुट कैसा दिखता है
 
 ![Terminal demo of dsh-icd-rule-check: real output over its IC-001 fixture](https://raw.githubusercontent.com/PerryLink/dsh-icd-rule-check/main/docs/assets/dsh-icd-rule-check-hero.png)
@@ -72,13 +79,6 @@ confident nonsense.
 ## What it does
 
 नियम-सूची, फ़ील्ड और विस्तृत व्यवहार [README.md](README.md#what-it-does) (अंग्रेज़ी मुख्य संस्करण) में हैं। यह प्लगइन केवल उद्धृत धाराओं के सामने शाब्दिक अंतर सूचीबद्ध करता है और हर न चल पाई जाँच को `skipped` में बताता है।
-
-## Install
-
-```sh
-dsh plugin --profile <name> add dsh-icd-rule-check
-dsh --profile <name> --dump-config | grep 'dsh-icd-rule-check'
-```
 
 ## Configuration
 

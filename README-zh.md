@@ -4,6 +4,13 @@
 
 `dsh-icd-rule-check` 读取一份住院病案首页的编码记录——主要诊断、其他诊断、主要手术操作、其他手术操作以及入院病情代码——核对这份记录自身的结构与相互引用关系：诊断编码是否符合 ICD-10 形式、手术操作编码是否符合 ICD-9-CM-3 形式（形式核对前先剥离 † / * 标记）、同一编码是否被重复列出、星号编码在本份记录中是否与对应的剑号编码成对、是否填写了主要诊断、各条检查所需的栏目是否齐备。每条差异都附上它所依据的条款；无法执行的检查一律进 `skipped`，不会静默通过。它不做编码查表。
 
+## Install
+
+```sh
+dsh plugin --profile <name> add dsh-icd-rule-check
+dsh --profile <name> --dump-config | grep 'dsh-icd-rule-check'
+```
+
 ## 实际输出长什么样
 
 ![Terminal demo of dsh-icd-rule-check: real output over its IC-001 fixture](https://raw.githubusercontent.com/PerryLink/dsh-icd-rule-check/main/docs/assets/dsh-icd-rule-check-hero.png)
@@ -72,13 +79,6 @@ confident nonsense.
 ## What it does
 
 规则表、字段说明与行为细节见 [README.md](README.md#what-it-does)（英文主版本）。本插件只列出材料与所引条款之间的字面差异，并对无法执行的检查在 `skipped` 中逐项说明。
-
-## Install
-
-```sh
-dsh plugin --profile <name> add dsh-icd-rule-check
-dsh --profile <name> --dump-config | grep 'dsh-icd-rule-check'
-```
 
 ## Configuration
 

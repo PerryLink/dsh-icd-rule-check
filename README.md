@@ -4,6 +4,13 @@
 
 `dsh-icd-rule-check` reads one coded inpatient episode — the principal diagnosis, the other diagnoses, the principal procedure, the other procedures and the admission-condition codes — and checks that episode's own structure and cross-references: that every diagnosis code has ICD-10 form and every procedure code ICD-9-CM-3 form (the † / * markers are stripped before the form test), that the same diagnosis code is not listed twice, that an asterisk code has its dagger partner in the same episode, that a principal diagnosis is present, and that the fields each check needs are filled. Every difference names the clause it came from, and every check that could not run is listed in `skipped` rather than passing silently. It never looks a code up in a catalogue.
 
+## Install
+
+```sh
+dsh plugin --profile <name> add dsh-icd-rule-check
+dsh --profile <name> --dump-config | grep 'dsh-icd-rule-check'
+```
+
 ## What it looks like
 
 ![Terminal demo of dsh-icd-rule-check: real output over its IC-001 fixture](https://raw.githubusercontent.com/PerryLink/dsh-icd-rule-check/main/docs/assets/dsh-icd-rule-check-hero.png)
@@ -90,13 +97,6 @@ whose every finding names the clause it came from.
 
 Every switch that depends on a code catalogue is **off** by default and reports itself in `skipped`
 until configured, so an unfilled table can never read as "nothing wrong".
-## Install
-
-```sh
-dsh plugin --profile <name> add dsh-icd-rule-check
-dsh --profile <name> --dump-config | grep 'dsh-icd-rule-check'
-```
-
 ## Configuration
 
 | Key | Type | Default | Description |
