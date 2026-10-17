@@ -1,0 +1,14 @@
+[
+  {
+    "path": "docs/assets/dsh-icd-rule-check-hero.png",
+    "kind": "hero",
+    "alt": "dsh-icd-rule-check terminal output",
+    "caption": "Real dsh-icd-rule-check checker output; 32 tests passed."
+  },
+  {
+    "path": "docs/assets/dsh-icd-rule-check-demo.gif",
+    "kind": "demo",
+    "alt": "Animated dsh-icd-rule-check terminal session",
+    "caption": "The same run, assembled line by line."
+  }
+]
