@@ -43,12 +43,7 @@ dsh --profile <name> --dump-config | grep 'dsh-icd-rule-check'
 | 《医疗保障基金结算清单填写规范（试行）》 | 医保办发〔2020〕20号 | IC-005, IC-011, IC-006, IC-010, IC-012 |
 | 《住院病案首页数据质量管理与控制指标（2016版）》 | 国卫办医发〔2016〕24号 | IC-009 |
 
-**Boundary:** this plugin performs **structural** checks on the codes of one inpatient episode — code
-form, duplicates, dagger/asterisk pairing, field completeness — and reports literal differences against
-cited clauses. It is not `dsh-medrec-qc` (which checks the front sheet as a whole, including its logic
-contradictions), not a code catalogue, and not an encoder. It never looks a code up: a catalogue lookup
-needs a licensed code table whose version matches the coder's, and a version mismatch there produces
-confident nonsense.
+**边界（中文译文，以英文原文为准）：** 本插件对一次住院的编码做**结构性**核对——编码形态、重复、剑号/星号配对、字段完整性——并报出与所引条款之间的字面差异。它不是 `dsh-medrec-qc`（后者整体核对病案首页，包括其中的逻辑矛盾），不是编码目录，也不是编码器。它从不查码：查码需要一张取得授权、且版本与编码员所用版本一致的编码表，而版本不一致只会产出信誓旦旦的错误结论。
 
 > ### ⚠️ What this plugin deliberately does **not** do, and why
 >
