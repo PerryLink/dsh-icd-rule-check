@@ -45,24 +45,11 @@ dsh --profile <name> --dump-config | grep 'dsh-icd-rule-check'
 
 **边界（中文译文，以英文原文为准）：** 本插件对一次住院的编码做**结构性**核对——编码形态、重复、剑号/星号配对、字段完整性——并报出与所引条款之间的字面差异。它不是 `dsh-medrec-qc`（后者整体核对病案首页，包括其中的逻辑矛盾），不是编码目录，也不是编码器。它从不查码：查码需要一张取得授权、且版本与编码员所用版本一致的编码表，而版本不一致只会产出信誓旦旦的错误结论。
 
-> ### ⚠️ What this plugin deliberately does **not** do, and why
+> ### ⚠️ 这个插件刻意**不**做什么，以及为什么（以英文原文为准）
 >
-> **It does not implement a combined-code (合并编码) rule, and it does not decide whether the principal
-> procedure matches the principal diagnosis.** The task this plugin was built from flagged those as a
-> critical-path risk: the rules are scattered across ICD user guides, the clinical-version handbook and
-> encoder training material, with **no publicly quotable national clause** found for them. This rule
-> pack is built on the rule that an entry whose basis cannot be quoted does not go in, so instead of
-> inventing a clause number the pack provides a **parameterised hook** (`IC-005` `correspondence`) and
-> ships it empty. Fill it in with your own catalogue's groupings, or leave it and read the `skipped`
-> entry that says the check did not run.
+> **它不实现合并编码规则，也不判定主要手术操作是否与主要诊断相匹配。** 构建本插件时所依据的任务把这两项列为关键路径风险：这些规则散见于 ICD 用户指南、临床版手册和编码员培训材料中，而且**找不到可公开引用的国家条款**。本规则库遵循这样一条规则：依据无法引用的条目不得收录；因此规则库没有编造条款编号，而是提供一个**参数化挂钩**（`IC-005` 的 `correspondence`），出厂时留空。请用你自己目录的分组把它填上，或者保留为空，并阅读那条说明检查未执行的 `skipped` 记录。
 >
-> **The dagger/asterisk rule is capped at `warn` for the same reason.** The †/* system comes from the
-> ICD-10 Volume 2 instruction manual († marks a condition classified here, * a manifestation classified
-> elsewhere), and the pairing requirement is a structural consequence of that system — but the official
-> Chinese text of Volume 2 was not obtainable online for verbatim quotation. `IC-003` therefore states
-> in its own note that its basis is a principle and that the clause should be upgraded to `direct` once
-> an authoritative text is secured. The comparison table ships empty too: the table version must match
-> the coder's catalogue.
+> **剑号/星号规则同样因此封顶 `warn`。** †/* 体系来自 ICD-10 第 2 卷使用指导手册（† 表示在此分类的疾病，* 表示在他处分类的表现），成对使用的要求是该体系的结构性后果——但第 2 卷的中文官方文本无法在网上取得，无法逐字引用。因此 `IC-003` 在自己的说明中写明：其依据是一项原则，一旦取得权威文本，该条款应升级为 `direct`。对照表同样出厂为空：表的版本必须与编码员使用的目录相匹配。
 
 ## Compatibility
 
