@@ -1,5 +1,12 @@
 # dsh-icd-rule-check — ICD coding rule check for one coded inpatient episode: combined-code and dagger/asterisk pairing hints
 
+[English](README.md) · [简体中文](README-zh.md) · [Español](README-es.md) · [Português](README-pt.md) · [हिन्दी](README-hi.md)
+
+```sh
+dsh plugin --profile <name> add dsh-icd-rule-check
+```
+
+
 [![DSH Market](https://raw.githubusercontent.com/2BingLing/dsh-market/master/assets/readme/badge-listed-en.svg)](https://dsh.market/)
 
 `dsh-icd-rule-check` reads one coded inpatient episode — the principal diagnosis, the other diagnoses, the principal procedure, the other procedures and the admission-condition codes — and checks that episode's own structure and cross-references: that every diagnosis code has ICD-10 form and every procedure code ICD-9-CM-3 form (the † / * markers are stripped before the form test), that the same diagnosis code is not listed twice, that an asterisk code has its dagger partner in the same episode, that a principal diagnosis is present, and that the fields each check needs are filled. Every difference names the clause it came from, and every check that could not run is listed in `skipped` rather than passing silently. It never looks a code up in a catalogue.

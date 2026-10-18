@@ -1,5 +1,12 @@
 # dsh-icd-rule-check — Verificación de las reglas de codificación ICD de un episodio de hospitalización: avisos de código combinado y de emparejamiento daga/asterisco
 
+[English](README.md) · [简体中文](README-zh.md) · [Español](README-es.md) · [Português](README-pt.md) · [हिन्दी](README-hi.md)
+
+```sh
+dsh plugin --profile <name> add dsh-icd-rule-check
+```
+
+
 [![DSH Market](https://raw.githubusercontent.com/2BingLing/dsh-market/master/assets/readme/badge-listed-en.svg)](https://dsh.market/)
 
 `dsh-icd-rule-check` lee un episodio de hospitalización codificado —el diagnóstico principal, los otros diagnósticos, el procedimiento principal, los otros procedimientos y los códigos de circunstancia de ingreso— y comprueba la estructura y las referencias internas de ese mismo episodio: que cada código de diagnóstico tenga forma ICD-10 y cada código de procedimiento forma ICD-9-CM-3 (los marcadores † / * se retiran antes de la comprobación de forma), que el mismo código de diagnóstico no se liste dos veces, que un código de asterisco tenga su código de daga pareja en el mismo episodio, que haya un diagnóstico principal y que estén rellenos los campos que cada comprobación necesita. Cada diferencia cita la cláusula de la que procede, y toda comprobación que no pudo ejecutarse figura en `skipped` en lugar de pasar en silencio. No busca ningún código en un catálogo.
