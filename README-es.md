@@ -20,13 +20,19 @@ dsh --profile <name> --dump-config | grep 'dsh-icd-rule-check'
 
 ## Cómo se ve la salida
 
-![Terminal demo of dsh-icd-rule-check: real output over its IC-001 fixture](https://raw.githubusercontent.com/PerryLink/dsh-icd-rule-check/main/docs/assets/dsh-icd-rule-check-hero.png)
+![Diagrama de flujo de dsh-icd-rule-check: documento → reglas → hallazgos.](docs/assets/dsh-icd-rule-check-flow.svg)
 
-![Animated terminal demo of dsh-icd-rule-check](https://raw.githubusercontent.com/PerryLink/dsh-icd-rule-check/main/docs/assets/dsh-icd-rule-check-demo.gif)
+*Resumen del flujo: documento → reglas → hallazgos. Los ejemplos siguientes usan la superficie de comandos real.*
+
 
 Salida real de este plugin sobre su propio fixture de prueba `IC-001` — no es un montaje. El paquete de reglas no inventa citas, así que cada hallazgo nombra la cláusula aplicada y advierte que su texto no se obtuvo.
 
 ## Qué responde
+
+### Ejemplos
+
+La tabla siguiente es el conjunto de ejemplos: la primera fila es el caso detallado y las demás son casos breves.
+
 
 | Usted pregunta | Qué responde |
 |---|---|
