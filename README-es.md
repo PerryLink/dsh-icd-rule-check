@@ -35,6 +35,34 @@ Salida real de este plugin sobre su propio fixture de prueba `IC-001` — no es 
 La tabla siguiente es el conjunto de ejemplos: la primera fila es el caso detallado y las demás son casos breves.
 
 
+#### Salida detallada
+
+**Herramienta** `icd_rule_check`
+
+**Entrada**
+
+~~~json
+{"principalDiagnosis":{"code":"急性心肌梗死","name":"急性心肌梗死"},"otherDiagnoses":[{"code":"I10","name":"高血压"}],"principalProcedure":{"code":"36.0600","name":"冠状动脉支架植入术"}}
+~~~
+ 
+**Salida**
+
+~~~json
+{
+  "id": "dsh-icd-rule-check.IC-001.5a91e9d3",
+  "ruleId": "IC-001",
+  "severity": "error",
+  "locator": {
+    "column": "主要诊断",
+    "cell": "急性心肌梗死"
+  },
+  "found": "诊断编码「急性心肌梗死」不符合 ICD-10 形式",
+  "expected": "疾病诊断编码应当统一使用 ICD-10，形式为 ^[A-Z][0-9]{2}(\\.[0-9A-Z]{1,4})?$"
+}
+~~~
+
+*Observado en `dsh-icd-rule-check/tests/fixtures/IC-001/IC-001-unsafe.json`*
+
 | Usted pregunta | Qué responde |
 |---|---|
 | La exportación guarda el código de diagnóstico como `A18.1†`. ¿La daga hará que salte la comprobación de forma? | No. `IC-001` retira los marcadores de daga y asterisco († / *) antes de examinar el código, así que el marcador por sí solo nunca produce una diferencia. Solo comprueba la forma del código: un código bien formado que su catálogo no contenga realmente pasa igualmente, porque verificarlo exige un catálogo licenciado de la misma versión que usa el codificador. |

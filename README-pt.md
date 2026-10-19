@@ -35,6 +35,34 @@ Saída real deste plugin sobre o seu próprio fixture de teste `IC-001` — não
 A tabela abaixo é o conjunto de exemplos: a primeira linha é o caso detalhado e as demais são casos curtos.
 
 
+#### Saída detalhada
+
+**Ferramenta** `icd_rule_check`
+
+**Entrada**
+
+~~~json
+{"principalDiagnosis":{"code":"急性心肌梗死","name":"急性心肌梗死"},"otherDiagnoses":[{"code":"I10","name":"高血压"}],"principalProcedure":{"code":"36.0600","name":"冠状动脉支架植入术"}}
+~~~
+ 
+**Saída**
+
+~~~json
+{
+  "id": "dsh-icd-rule-check.IC-001.5a91e9d3",
+  "ruleId": "IC-001",
+  "severity": "error",
+  "locator": {
+    "column": "主要诊断",
+    "cell": "急性心肌梗死"
+  },
+  "found": "诊断编码「急性心肌梗死」不符合 ICD-10 形式",
+  "expected": "疾病诊断编码应当统一使用 ICD-10，形式为 ^[A-Z][0-9]{2}(\\.[0-9A-Z]{1,4})?$"
+}
+~~~
+
+*Observado em `dsh-icd-rule-check/tests/fixtures/IC-001/IC-001-unsafe.json`*
+
 | Você pergunta | O que ele responde |
 |---|---|
 | A exportação guarda o código de diagnóstico como `A18.1†`. O punhal vai fazer disparar a verificação de forma? | Não. `IC-001` retira os marcadores de punhal e asterisco († / *) antes de examinar o código, por isso o marcador sozinho nunca produz uma diferença. Verifica apenas a forma do código: um código bem formado que o seu catálogo não contenha realmente passa à mesma, porque verificar isso exige um catálogo licenciado da mesma versão que o codificador usa. |

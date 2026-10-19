@@ -33,6 +33,34 @@ dsh --profile <name> --dump-config | grep 'dsh-icd-rule-check'
 
 The table below is the example set: the first row is the detailed walkthrough, the remaining rows are short cases.
 
+#### Detailed output
+
+**Tool** `icd_rule_check`
+
+**Input**
+
+~~~json
+{"principalDiagnosis":{"code":"急性心肌梗死","name":"急性心肌梗死"},"otherDiagnoses":[{"code":"I10","name":"高血压"}],"principalProcedure":{"code":"36.0600","name":"冠状动脉支架植入术"}}
+~~~
+ 
+**Output**
+
+~~~json
+{
+  "id": "dsh-icd-rule-check.IC-001.5a91e9d3",
+  "ruleId": "IC-001",
+  "severity": "error",
+  "locator": {
+    "column": "主要诊断",
+    "cell": "急性心肌梗死"
+  },
+  "found": "诊断编码「急性心肌梗死」不符合 ICD-10 形式",
+  "expected": "疾病诊断编码应当统一使用 ICD-10，形式为 ^[A-Z][0-9]{2}(\\.[0-9A-Z]{1,4})?$"
+}
+~~~
+
+*Observed from `dsh-icd-rule-check/tests/fixtures/IC-001/IC-001-unsafe.json`*
+
 | You ask | What it answers |
 |---|---|
 | Our export stores the diagnosis code as `A18.1†`. Will the dagger make the form check fire? | No. `IC-001` strips the dagger and asterisk markers († / *) before it tests the code, so the marker alone never produces a finding. It checks the code's form only: a well-formed code that your catalogue does not actually contain still passes, because verifying that needs a licensed catalogue of the same version the coder uses. |

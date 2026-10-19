@@ -30,6 +30,34 @@ dsh --profile <name> --dump-config | grep 'dsh-icd-rule-check'
 下表是示例集：第一行是详细走查，其余行是简短案例。
 
 
+#### 详细输出
+
+**工具** `icd_rule_check`
+
+**输入**
+
+~~~json
+{"principalDiagnosis":{"code":"急性心肌梗死","name":"急性心肌梗死"},"otherDiagnoses":[{"code":"I10","name":"高血压"}],"principalProcedure":{"code":"36.0600","name":"冠状动脉支架植入术"}}
+~~~
+ 
+**输出**
+
+~~~json
+{
+  "id": "dsh-icd-rule-check.IC-001.5a91e9d3",
+  "ruleId": "IC-001",
+  "severity": "error",
+  "locator": {
+    "column": "主要诊断",
+    "cell": "急性心肌梗死"
+  },
+  "found": "诊断编码「急性心肌梗死」不符合 ICD-10 形式",
+  "expected": "疾病诊断编码应当统一使用 ICD-10，形式为 ^[A-Z][0-9]{2}(\\.[0-9A-Z]{1,4})?$"
+}
+~~~
+
+*来源 `dsh-icd-rule-check/tests/fixtures/IC-001/IC-001-unsafe.json`*
+
 | 你会问 | 它怎么答 |
 |---|---|
 | 导出的诊断编码写的是 `A18.1†`，剑号会不会让形式核对报错？ | 不会。`IC-001` 在做形式核对前先剥离星剑号标记（† / *），标记本身不会产生差异。它只核对编码的形式：形式合规但在你所用目录中并不存在的编码仍然通过，因为核对这一点需要与编码员版本一致的授权目录。 |
