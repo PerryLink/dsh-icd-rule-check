@@ -1,0 +1,3 @@
+$ node samples/quickstart/run.mjs
+icd_rule_check: 2 issue(s) — error 1, warn 0, info 1
+skipped: 10
