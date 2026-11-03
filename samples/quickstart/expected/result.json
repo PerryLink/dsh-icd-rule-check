@@ -1,0 +1,10 @@
+{
+  "tool": "icd_rule_check",
+  "issueCount": 2,
+  "summary": {
+    "error": 1,
+    "warn": 0,
+    "info": 1
+  },
+  "skippedCount": 10
+}
