@@ -1,6 +1,6 @@
 # dsh-icd-rule-check — ICD 合并编码与星剑号配对提示
 
-## 快速试跑（1 分钟）
+### 快速试跑（1 分钟）
 
 ```bash
 node samples/quickstart/run.mjs --check
