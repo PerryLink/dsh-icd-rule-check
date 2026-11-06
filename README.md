@@ -1,8 +1,8 @@
 <div align="center">
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-icd-rule-check-flow-dark.svg">
-  <img src="docs/assets/dsh-icd-rule-check-flow-light.svg" width="100%" alt="dsh-icd-rule-check 数据流：一份住院病案首页编码记录（JSON/YAML）→ icd_rule_check 读取 → IC-001…IC-012 规则包 → runCheck → 报告（found/expected/locator + skipped）；只列差异，不查码、不改原件">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-icd-rule-check-hero-zh-dark.webp">
+  <img src="docs/assets/dsh-icd-rule-check-hero-zh-light.webp" width="100%" alt="dsh-icd-rule-check 配图：左列是插件名与两行价值句；右侧是一份住院病案首页编码记录——主要诊断栏填的是诊断名称而不是 ICD-10 编码，主诉与诊断名称没有两字以上重叠；下方差异清单列出 IC-001 与 IC-008 两条，并注明严重级封顶与 skipped 条数，结论留给编码员">
 </picture>
 
 # dsh-icd-rule-check
@@ -38,6 +38,11 @@ dsh plugin --profile <name> add dsh-icd-rule-check
 
 `dsh-icd-rule-check` 读取一份住院病案首页的编码记录——主要诊断、其他诊断、主要手术操作、其他手术操作以及入院病情代码——核对这份记录自身的结构与相互引用关系：诊断编码是否符合 ICD-10 形式、手术操作编码是否符合 ICD-9-CM-3 形式（形式核对前先剥离 † / * 标记）、同一编码是否被重复列出、星号编码在本份记录中是否与对应的剑号编码成对、是否填写了主要诊断、各条检查所需的栏目是否齐备。你交出原始材料（JSON 或 YAML；Excel 可先转成 JSON/YAML，对话里也能代转），它返回一份「哪一行、哪一栏、差什么」的差异清单。它不判合规、不认定责任、不替代审核人、不查编码目录，也绝不修改原件。
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-icd-rule-check-flow-v5-dark.svg">
+  <img src="docs/assets/dsh-icd-rule-check-flow-v5-light.svg" width="100%" alt="dsh-icd-rule-check 结构图：左侧一份编码记录（字段名即 locator.column），中间 12 条规则按依据分三层——direct 封顶 error、derived-from-principle 封顶 warn、institutional-configuration 封顶 info；右侧 issues[] 与 skipped[] 两条清单汇到编码员复核，报告只列差异、不查目录、原件永不修改">
+</picture>
+
 ## 三步上手
 
 1. **安装**：
@@ -70,7 +75,7 @@ dsh plugin --profile <name> add dsh-icd-rule-check
    node samples/quickstart/run.mjs --check
    ```
 
-   样例输入在 `samples/quickstart/input/`，期望输出在 `samples/quickstart/expected/result.json`，运行截图见 `docs/assets/quickstart.png`。
+   样例输入在 `samples/quickstart/input/`，期望输出在 `samples/quickstart/expected/result.json`，运行截图见 `docs/assets/quickstart.png`。README 配图由 [`scripts/gen-readme-assets.py`](scripts/gen-readme-assets.py) 程序化生成——hero 横幅用 Pillow 画、结构图用手写 SVG 画——可重复执行；旧的单版流程图与演示图保留在 `docs/assets/` 供外链使用，README 只引用新生成的 hero 与 flow-v5 结构图（各含深浅双版）。
 
 **卸载**：`dsh plugin --profile <name> remove dsh-icd-rule-check`（或从 profile patch 删掉该行）。
 
@@ -304,7 +309,7 @@ node ../scripts/sync-shared.mjs dsh-icd-rule-check   # 从 ../_shared 刷新 src
 | `rules/evidence/` | 每条引文的条款核验记录 |
 | `tests/fixtures/<RULE>/` | 每条规则配对的合规/违规夹具 |
 
-README 配图由 [`scripts/gen-readme-assets.py`](scripts/gen-readme-assets.py) 程序化生成（Python + Pillow），可重复执行；本插件无 UI，hero 为手绘 SVG 流程图（深浅双版，图内仅命令面 token）。
+README 配图由 [`scripts/gen-readme-assets.py`](scripts/gen-readme-assets.py) 程序化生成（Python + Pillow 画 hero、手写 SVG 画结构图），可重复执行；本插件无 UI，hero 为病案首页编码记录示意图（中英 × 深浅四版），结构图为按依据封顶的证据阶梯（深浅双版，图内仅命令面 token）。
 
 Topics：`dsh`, `dsh-plugin`, `deepseek-harness`, `deepseek`, `cordis`, `icd`, `rule`
 

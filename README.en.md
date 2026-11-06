@@ -1,8 +1,8 @@
 <div align="center">
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-icd-rule-check-flow-dark.svg">
-  <img src="docs/assets/dsh-icd-rule-check-flow-light.svg" width="100%" alt="dsh-icd-rule-check data flow: one coded inpatient episode (JSON/YAML) → icd_rule_check → IC-001…IC-012 rule pack → runCheck → report (found/expected/locator + skipped); differences only, no catalogue lookup, the original is never modified">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-icd-rule-check-hero-en-dark.webp">
+  <img src="docs/assets/dsh-icd-rule-check-hero-en-light.webp" width="100%" alt="dsh-icd-rule-check: the plugin name and two value lines on the left; on the right one coded inpatient episode whose principal-diagnosis code column holds a diagnosis name rather than an ICD-10 code, and whose chief complaint shares no two-character run with the diagnosis names; below it the two findings, the severity ceiling and the skipped tally — the verdict stays with the coder">
 </picture>
 
 # dsh-icd-rule-check
@@ -10,6 +10,11 @@
 **Check one coded inpatient episode for ICD-10 and ICD-9-CM-3 code form, duplicates, dagger/asterisk pairing and field completeness — and get back a list of what is inconsistent, where, and what to fix.**
 
 A DeepSeek Harness checker for medical coders and quality-control staff: the rule pack quotes its public clauses verbatim, reports only literal differences against the cited clauses, and never decides compliance, assigns liability, looks a code up in a catalogue, or touches your original.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-icd-rule-check-flow-v5-dark.svg">
+  <img src="docs/assets/dsh-icd-rule-check-flow-v5-light.svg" width="100%" alt="dsh-icd-rule-check structure: one coded episode on the left (field names are the locator), twelve rules on three evidence shelves in the middle — direct capped at error, derived-from-principle at warn, institutional-configuration at info; two lists, issues[] and skipped[], leave to the reviewer — differences only, no catalogue lookup, the original is never modified">
+</picture>
 
 [Install](#three-step-setup) · [Configuration](#configuration) · [FAQ](#faq) · [简体中文](README.md) · [English](README.en.md) · [Español](README.es.md) · [Português](README.pt.md) · [हिन्दी](README.hi.md)
 
@@ -70,7 +75,7 @@ dsh plugin --profile <name> add dsh-icd-rule-check
    node samples/quickstart/run.mjs --check
    ```
 
-   The sample input lives in `samples/quickstart/input/`, the expected output in `samples/quickstart/expected/result.json`, and the run screenshot in `docs/assets/quickstart.png`.
+   The sample input lives in `samples/quickstart/input/`, the expected output in `samples/quickstart/expected/result.json`, and the run screenshot in `docs/assets/quickstart.png`. The README images are generated programmatically by [`scripts/gen-readme-assets.py`](scripts/gen-readme-assets.py) (Pillow for the hero banner, hand-written SVG for the structure diagram) and are safe to re-run; the older single-skin flow diagram and demo images stay in `docs/assets/` for external deep links, while the READMEs reference only the new hero and flow-v5 structure diagram, each in light and dark.
 
 **Uninstall**: `dsh plugin --profile <name> remove dsh-icd-rule-check` (or remove the row from the profile patch).
 
@@ -315,7 +320,7 @@ The rule pack is data, not code: replacing `rules/*.yaml` switches the rule set 
 | `rules/evidence/` | clause-verification record for every citation |
 | `tests/fixtures/<RULE>/` | paired compliant/violating fixtures per rule |
 
-README images are generated programmatically by [`scripts/gen-readme-assets.py`](scripts/gen-readme-assets.py) (Python + Pillow) and are safe to re-run; this plugin has no UI, so the hero is a hand-written SVG flow diagram (light and dark variants, command-surface tokens only).
+README images are generated programmatically by [`scripts/gen-readme-assets.py`](scripts/gen-readme-assets.py) (Pillow draws the hero, hand-written SVG the structure diagram) and are safe to re-run; this plugin has no UI, so the hero is a coded inpatient record illustration (Chinese/English × light/dark) and the structure diagram is an evidence staircase whose ceilings follow each rule's basis (light and dark, command-surface tokens only).
 
 Topics: `dsh`, `dsh-plugin`, `deepseek-harness`, `deepseek`, `cordis`, `icd`, `rule`
 

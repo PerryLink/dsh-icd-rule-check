@@ -1,8 +1,8 @@
 <div align="center">
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-icd-rule-check-flow-dark.svg">
-  <img src="docs/assets/dsh-icd-rule-check-flow-light.svg" width="100%" alt="dsh-icd-rule-check डेटा प्रवाह: एक कोडित इनपेशेंट प्रकरण (JSON/YAML) → icd_rule_check → IC-001…IC-012 नियम-पैक → runCheck → रिपोर्ट (found/expected/locator + skipped); केवल अंतर, कोई कूट-सूची खोज नहीं, मूल कभी नहीं बदलता">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-icd-rule-check-hero-en-dark.webp">
+  <img src="docs/assets/dsh-icd-rule-check-hero-en-light.webp" width="100%" alt="dsh-icd-rule-check: बाईं ओर प्लगइन का नाम और दो मूल्य-पंक्तियाँ; दाईं ओर एक कूटबद्ध इनपेशेंट प्रकरण जिसके मुख्य निदान कॉलम में ICD-10 कूट की जगह निदान का नाम है और मुख्य शिकायत निदान नामों से दो अक्षर भी साझा नहीं करती; नीचे दो अंतर, गंभीरता की सीमा और skipped की गिनती — निर्णय कोडर के पास रहता है">
 </picture>
 
 # dsh-icd-rule-check
@@ -38,6 +38,11 @@ dsh plugin --profile <name> add dsh-icd-rule-check
 
 `dsh-icd-rule-check` एक कूटबद्ध इनपेशेंट प्रकरण पढ़ता है — मुख्य निदान, अन्य निदान, मुख्य शल्य-प्रक्रिया, अन्य शल्य-प्रक्रियाएँ और प्रवेश-स्थिति कूट — और उसी प्रकरण की संरचना तथा आंतरिक संबंधों की जाँच करता है: क्या प्रत्येक निदान कूट ICD-10 रूप में है और प्रत्येक शल्य-प्रक्रिया कूट ICD-9-CM-3 रूप में (रूप-जाँच से पहले † / * चिह्न हटा दिए जाते हैं), क्या वही निदान कूट दो बार सूचीबद्ध नहीं है, क्या किसी एस्टरिस्क कूट का उसका डैगर साथी उसी प्रकरण में मौजूद है, क्या मुख्य निदान भरा गया है, और प्रत्येक जाँच के लिए आवश्यक क्षेत्र भरे हैं या नहीं। आप मूल सामग्री देते हैं (JSON या YAML; Excel को पहले JSON/YAML में बदला जा सकता है, चैट में भी यदि प्लेटफ़ॉर्म समर्थन दे) और यह अंतरों की सूची लौटाता है। यह अनुपालन का निर्णय नहीं देता, उत्तरदायित्व नहीं ठहराता, समीक्षक का स्थान नहीं लेता, कूट-सूची में कूट नहीं खोजता और मूल कभी नहीं बदलता।
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-icd-rule-check-flow-v5-dark.svg">
+  <img src="docs/assets/dsh-icd-rule-check-flow-v5-light.svg" width="100%" alt="dsh-icd-rule-check की संरचना: बाईं ओर एक कूटबद्ध प्रकरण (फ़ील्ड नाम ही locator हैं); बीच में बारह नियम तीन साक्ष्य-स्तरों पर — direct की सीमा error, derived-from-principle की सीमा warn, institutional-configuration की सीमा info; दाईं ओर issues[] और skipped[] दोनों सूचियाँ समीक्षक तक पहुँचती हैं — केवल अंतर, कोई कूट-सूची खोज नहीं, मूल कभी नहीं बदलता">
+</picture>
+
 ## तीन चरणों में शुरुआत
 
 1. **इंस्टॉल करें**:
@@ -70,7 +75,7 @@ dsh plugin --profile <name> add dsh-icd-rule-check
    node samples/quickstart/run.mjs --check
    ```
 
-   नमूना इनपुट `samples/quickstart/input/` में, अपेक्षित आउटपुट `samples/quickstart/expected/result.json` में और चलाने का स्क्रीनशॉट `docs/assets/quickstart.png` में है।
+   नमूना इनपुट `samples/quickstart/input/` में, अपेक्षित आउटपुट `samples/quickstart/expected/result.json` में और चलाने का स्क्रीनशॉट `docs/assets/quickstart.png` में है। README चित्र [`scripts/gen-readme-assets.py`](scripts/gen-readme-assets.py) से क्रमादेशित रूप से बनते हैं (hero के लिए Pillow, संरचना चित्र के लिए हाथ से लिखा SVG) और स्क्रिप्ट दोबारा चलाई जा सकती है; पुराना एकल-स्किन फ़्लो चित्र और डेमो छवियाँ बाहरी लिंक के लिए `docs/assets/` में बनी रहती हैं, जबकि README केवल नए hero और flow-v5 संरचना चित्रों को संदर्भित करते हैं, दोनों हल्के और गहरे रूप में।
 
 **अनइंस्टॉल**: `dsh plugin --profile <name> remove dsh-icd-rule-check` (या प्रोफ़ाइल पैच से वह पंक्ति हटाएँ)।
 
@@ -315,7 +320,7 @@ node ../scripts/sync-shared.mjs dsh-icd-rule-check   # ../_shared से src/sha
 | `rules/evidence/` | प्रत्येक उद्धरण का खंड-सत्यापन रिकॉर्ड |
 | `tests/fixtures/<RULE>/` | प्रति नियम युग्मित अनुरूप/उल्लंघन फ़िक्स्चर |
 
-README चित्र [`scripts/gen-readme-assets.py`](scripts/gen-readme-assets.py) (Python + Pillow) से क्रमादेशित रूप से बनते हैं और दोबारा चलाए जा सकते हैं; इस प्लगइन में UI नहीं है, इसलिए hero हाथ से लिखा SVG प्रवाह-आरेख है (हल्का और गहरा संस्करण, केवल कमांड-सतह टोकन)।
+README चित्र [`scripts/gen-readme-assets.py`](scripts/gen-readme-assets.py) से क्रमादेशित रूप से बनते हैं (hero Pillow से, संरचना चित्र हाथ से लिखे SVG से) और दोबारा चलाए जा सकते हैं; इस प्लगइन में UI नहीं है, इसलिए hero एक कूटबद्ध इनपेशेंट रिकॉर्ड का चित्र है (चीनी/अंग्रेज़ी × हल्का/गहरा) और संरचना चित्र साक्ष्य-सीढ़ी है जिसकी सीमाएँ हर नियम के आधार का पालन करती हैं (हल्का और गहरा, केवल कमांड-सतह टोकन)।
 
 Topics: `dsh`, `dsh-plugin`, `deepseek-harness`, `deepseek`, `cordis`, `icd`, `rule`
 

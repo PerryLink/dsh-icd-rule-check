@@ -1,8 +1,8 @@
 <div align="center">
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-icd-rule-check-flow-dark.svg">
-  <img src="docs/assets/dsh-icd-rule-check-flow-light.svg" width="100%" alt="Fluxo de dados do dsh-icd-rule-check: um episódio codificado (JSON/YAML) → icd_rule_check → pacote de regras IC-001…IC-012 → runCheck → relatório (found/expected/locator + skipped); apenas diferenças, sem consultar catálogos, o original nunca é alterado">
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-icd-rule-check-hero-en-dark.webp">
+  <img src="docs/assets/dsh-icd-rule-check-hero-en-light.webp" width="100%" alt="dsh-icd-rule-check: o nome e duas frases de valor à esquerda; à direita, um episódio de internamento codificado cuja coluna de código de diagnóstico principal contém um nome de diagnóstico em vez de um código ICD-10, e cuja queixa principal não partilha dois caracteres com os nomes dos diagnósticos; abaixo, os dois achados, o teto de gravidade e a contagem de skipped — o veredito fica com o codificador">
 </picture>
 
 # dsh-icd-rule-check
@@ -38,6 +38,11 @@ dsh plugin --profile <name> add dsh-icd-rule-check
 
 `dsh-icd-rule-check` lê um episódio de internamento codificado —o diagnóstico principal, os outros diagnósticos, o procedimento principal, os outros procedimentos e os códigos de circunstância de admissão— e verifica a estrutura e as referências internas desse mesmo episódio: se cada código de diagnóstico tem forma ICD-10 e cada código de procedimento forma ICD-9-CM-3 (os marcadores † / * são retirados antes da verificação de forma), se o mesmo código de diagnóstico não é listado duas vezes, se um código de asterisco tem o seu código de punhal no mesmo episódio, se existe um diagnóstico principal e se estão preenchidos os campos de que cada verificação precisa. Você entrega o material original (JSON ou YAML; o Excel pode ser convertido antes para JSON/YAML, no chat se a plataforma permitir) e recebe uma lista de diferenças. Não decide conformidade, não atribui responsabilidade, não substitui o revisor, não procura códigos num catálogo e nunca altera o original.
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/dsh-icd-rule-check-flow-v5-dark.svg">
+  <img src="docs/assets/dsh-icd-rule-check-flow-v5-light.svg" width="100%" alt="Estrutura do dsh-icd-rule-check: à esquerda um episódio codificado (os nomes de campo são o locator); ao centro, doze regras em três prateleiras de evidência — direct com teto error, derived-from-principle com teto warn, institutional-configuration com teto info; à direita, as listas issues[] e skipped[] chegam ao revisor — apenas diferenças, sem consultar catálogos, o original nunca é alterado">
+</picture>
+
 ## Instalação em três passos
 
 1. **Instale**:
@@ -70,7 +75,7 @@ dsh plugin --profile <name> add dsh-icd-rule-check
    node samples/quickstart/run.mjs --check
    ```
 
-   A entrada do exemplo está em `samples/quickstart/input/`, a saída esperada em `samples/quickstart/expected/result.json` e a captura de execução em `docs/assets/quickstart.png`.
+   A entrada do exemplo está em `samples/quickstart/input/`, a saída esperada em `samples/quickstart/expected/result.json` e a captura de execução em `docs/assets/quickstart.png`. As imagens do README são geradas programaticamente por [`scripts/gen-readme-assets.py`](scripts/gen-readme-assets.py) (Pillow para o banner hero, SVG escrito à mão para o diagrama de estrutura) e o script pode ser reexecutado; o diagrama de fluxo antigo de uma só pele e as imagens de demonstração ficam em `docs/assets/` para ligações externas, enquanto os README só referenciam o novo hero e o diagrama de estrutura flow-v5, cada um em claro e escuro.
 
 **Desinstalar**: `dsh plugin --profile <name> remove dsh-icd-rule-check` (ou remova a linha do patch de perfil).
 
@@ -315,7 +320,7 @@ O pacote de regras é dado, não código: substituir `rules/*.yaml` troca o conj
 | `rules/evidence/` | registo de verificação de cada citação |
 | `tests/fixtures/<RULE>/` | fixtures conformes/violadoras emparelhadas por regra |
 
-As imagens do README são geradas programaticamente por [`scripts/gen-readme-assets.py`](scripts/gen-readme-assets.py) (Python + Pillow) e podem ser reexecutadas; este plugin não tem UI, por isso o hero é um diagrama de fluxo SVG desenhado à mão (variantes clara e escura, apenas tokens da superfície de comandos).
+As imagens do README são geradas programaticamente por [`scripts/gen-readme-assets.py`](scripts/gen-readme-assets.py) (Pillow desenha o hero e SVG escrito à mão o diagrama de estrutura) e podem ser reexecutadas; este plugin não tem UI, por isso o hero é uma ilustração de um registo de episódio codificado (chinês/inglês × claro/escuro) e o diagrama de estrutura é uma escada de evidência cujos tetos seguem a base de cada regra (claro e escuro, apenas tokens da superfície de comandos).
 
 Topics: `dsh`, `dsh-plugin`, `deepseek-harness`, `deepseek`, `cordis`, `icd`, `rule`
 
