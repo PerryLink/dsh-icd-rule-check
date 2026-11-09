@@ -1,6 +1,6 @@
 # dsh-icd-rule-check — ICD coding rule check for one coded inpatient episode: combined-code and dagger/asterisk pairing hints
 
-[English](README.md) · [简体中文](README-zh.md) · [Español](README-es.md) · [Português](README-pt.md) · [हिन्दी](README-hi.md)
+[English](README.md) · [简体中文](README-zh.md)
 
 ```sh
 dsh plugin --profile <name> add dsh-icd-rule-check
