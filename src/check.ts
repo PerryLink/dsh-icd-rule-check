@@ -563,11 +563,9 @@ export function runCheck(input: IcdInput, ruleset: Ruleset, options: CheckOption
     skipped.push({ rule: ruleId, reason: withNote(reason) })
     already.add(ruleId)
   }
-  for (const rule of ruleset.rules) {
-    if (disabled.has(rule.id) || base.fired.has(rule.id) || already.has(rule.id)) continue
-    if (options.onlyRules.length > 0 && !only.has(rule.id)) continue
-    skipped.push({ rule: rule.id, reason: withNote('材料满足该检查的前置条件且未发现差异条目') })
-  }
+  // A rule that ran and found nothing is an executed-clean result, not a
+  // skipped check. Removing the old loop keeps the report from labelling a
+  // completed check as "未执行".
   if (options.onlyRules.length > 0) {
     const notSelected = ruleset.rules.filter((rule) => !only.has(rule.id) && !disabled.has(rule.id))
     if (notSelected.length > 0) {
@@ -578,6 +576,8 @@ export function runCheck(input: IcdInput, ruleset: Ruleset, options: CheckOption
     }
   }
 
+  const skippedRules = new Set(skipped.flatMap((entry) => entry.rule.split(',')))
+  const executed = ruleset.rules.filter((rule) => !skippedRules.has(rule.id)).length
   return makeReport({
     plugin: options.plugin,
     target: input.target,
@@ -585,5 +585,12 @@ export function runCheck(input: IcdInput, ruleset: Ruleset, options: CheckOption
     checkedAt: options.checkedAt,
     issues: context.issues,
     skipped,
+    execution: {
+      total: ruleset.rules.length,
+      executed,
+      skipped: ruleset.rules.length - executed,
+      manual: 0,
+      unsupported: 0,
+    },
   })
 }
