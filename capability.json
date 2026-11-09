@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "tier": "L1-lite",
+  "input_formats": [
+    "json",
+    "yaml"
+  ],
+  "outputs": [
+    "markdown",
+    "json"
+  ],
+  "rules": {
+    "total": 12
+  },
+  "limits": [
+    "病案 episode 的嵌套 JSON/YAML；尚无文档适配器",
+    "无真实语料/P/R；benchmark 未测",
+    "不做定性/合规结论"
+  ]
+}
