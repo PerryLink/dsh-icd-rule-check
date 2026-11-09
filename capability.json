@@ -1,20 +1,35 @@
 {
   "schemaVersion": 1,
-  "tier": "L1-lite",
+  "tier": "L1+ingest",
   "input_formats": [
     "json",
-    "yaml"
+    "yaml",
+    "docx",
+    "xlsx",
+    "xlsm",
+    "csv",
+    "tsv"
   ],
   "outputs": [
     "markdown",
     "json"
   ],
   "rules": {
-    "total": 12
+    "total": 12,
+    "executed": 4,
+    "skipped": 8,
+    "manual": 0,
+    "unsupported": 0
   },
   "limits": [
-    "病案 episode 的嵌套 JSON/YAML；尚无文档适配器",
-    "无真实语料/P/R；benchmark 未测",
-    "不做定性/合规结论"
-  ]
+    "文档入口需要另装 dsh-table-ingest，并要求「类型/编码/名称」三列",
+    "8 条规则因缺少入院病情/序列等字段而跳过；跳过不等于通过",
+    "不查 ICD 编码目录，只核对给定编码的结构与主/次关系"
+  ],
+  "benchmark": {
+    "kind": "quickstart-sample",
+    "corpus_size": 1,
+    "note": "one 4-row long-format CSV through dsh-table-ingest; 4/12 rules run, 8 skip on absent admission/sequence fields; not a real-world P/R",
+    "measured_at": "2026-11-09"
+  }
 }
