@@ -1,0 +1,142 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="660" viewBox="0 0 1100 660" role="img" aria-label="dsh-icd-rule-check structure: one coded episode feeds twelve rules on three evidence shelves with severity ceilings; issues[] and skipped[] leave to the reviewer">
+<defs>
+<linearGradient id="bg" x1="0" y1="0" x2="0.3" y2="1"><stop offset="0" stop-color="#131a2a"/><stop offset="1" stop-color="#0c1016"/></linearGradient>
+<filter id="soft" x="-30%" y="-30%" width="160%" height="170%"><feDropShadow dx="0" dy="7" stdDeviation="9" flood-color="#16122c" flood-opacity="0.45"/></filter>
+<marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.4" markerHeight="6.4" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#8496f5"/></marker>
+<marker id="arr2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.2" markerHeight="6.2" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#3fb950"/></marker>
+</defs>
+<rect width="1100" height="660" fill="url(#bg)"/>
+<text x="44" y="58" fill="#f0f3f9" font-family="'Consolas','SFMono-Regular','Menlo',ui-monospace,monospace" font-size="28" font-weight="700">dsh-icd-rule-check</text>
+<text x="44" y="86" fill="#a8b1c4" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif" font-size="15">一份编码记录 → 12 条规则按依据分三层 → issues[] 与 skipped[] 两条清单 → 编码员复核</text>
+<rect x="913.0" y="36" width="143.0" height="26" rx="13.0" fill="#202839"/>
+<text x="925.0" y="53.08" fill="#8496f5" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif" font-size="12">规则包 2026.1 · 12 条</text>
+<rect x="44" y="112" width="272" height="428" rx="20" fill="#1b2231" stroke="#2e374b" stroke-width="1.5" filter="url(#soft)"/>
+<text x="62" y="136" fill="#8496f5" font-family="'Consolas','SFMono-Regular','Menlo',ui-monospace,monospace" font-size="11.5" font-weight="700">记录 IcdInput</text>
+<rect x="231.0" y="125" width="69.0" height="19" rx="9.5" fill="#202839"/>
+<text x="239.0" y="138.24" fill="#8496f5" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif" font-size="11">示例 · 只读</text>
+<text x="62" y="154" fill="#737b8d" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif" font-size="11">字段名即 locator.column</text>
+<text x="62" y="180" fill="#a8b1c4" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif" font-size="11">主要诊断</text>
+<text x="113.0" y="180" fill="#737b8d" font-family="'Consolas','SFMono-Regular','Menlo',ui-monospace,monospace" font-size="11">principalDiagnosis</text>
+<rect x="57" y="187" width="92.0" height="23" rx="8" fill="#2c1a1e"/>
+<rect x="57" y="187" width="92.0" height="23" rx="8" fill="none" stroke="#ff8f85" stroke-width="1.6" stroke-dasharray="6 4"/>
+<text x="64" y="202" fill="#ff8f85" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif" font-size="13">急性心肌梗死</text>
+<text x="170" y="202" fill="#a8b1c4" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif" font-size="11.5">急性心肌梗死</text>
+<text x="62" y="236" fill="#a8b1c4" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif" font-size="11">其他诊断</text>
+<text x="113.0" y="236" fill="#737b8d" font-family="'Consolas','SFMono-Regular','Menlo',ui-monospace,monospace" font-size="11">otherDiagnoses[]</text>
+<text x="62" y="258" fill="#f0f3f9" font-family="'Consolas','SFMono-Regular','Menlo',ui-monospace,monospace" font-size="13">I10</text>
+<text x="170" y="258" fill="#a8b1c4" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif" font-size="11.5">高血压</text>
+<text x="62" y="292" fill="#a8b1c4" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif" font-size="11">主要手术</text>
+<text x="113.0" y="292" fill="#737b8d" font-family="'Consolas','SFMono-Regular','Menlo',ui-monospace,monospace" font-size="11">principalProcedure</text>
+<text x="62" y="314" fill="#f0f3f9" font-family="'Consolas','SFMono-Regular','Menlo',ui-monospace,monospace" font-size="13">36.0600</text>
+<text x="170" y="314" fill="#a8b1c4" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif" font-size="11.5">冠状动脉支架植入术</text>
+<text x="62" y="348" fill="#a8b1c4" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif" font-size="11">其他手术</text>
+<text x="113.0" y="348" fill="#737b8d" font-family="'Consolas','SFMono-Regular','Menlo',ui-monospace,monospace" font-size="11">otherProcedures[]</text>
+<text x="62" y="370" fill="#f0f3f9" font-family="'Consolas','SFMono-Regular','Menlo',ui-monospace,monospace" font-size="13">[]</text>
+<text x="170" y="370" fill="#a8b1c4" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif" font-size="11.5">空</text>
+<text x="62" y="404" fill="#a8b1c4" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif" font-size="11">主诉</text>
+<text x="91.0" y="404" fill="#737b8d" font-family="'Consolas','SFMono-Regular','Menlo',ui-monospace,monospace" font-size="11">chiefComplaint</text>
+<rect x="57" y="411" width="108.0" height="23" rx="8" fill="#232a38"/>
+<rect x="57" y="411" width="108.0" height="23" rx="8" fill="none" stroke="#98a2b3" stroke-width="1.6" stroke-dasharray="6 4"/>
+<text x="64" y="426" fill="#98a2b3" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif" font-size="13">突发胸痛 3 小时</text>
+<text x="62" y="460" fill="#a8b1c4" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif" font-size="11">入院病情</text>
+<text x="113.0" y="460" fill="#737b8d" font-family="'Consolas','SFMono-Regular','Menlo',ui-monospace,monospace" font-size="11">admissionCondition</text>
+<text x="62" y="482" fill="#f0f3f9" font-family="'Consolas','SFMono-Regular','Menlo',ui-monospace,monospace" font-size="13">I21.900 → 1</text>
+<text x="62" y="504" fill="#737b8d" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif" font-size="11">† / * 先剥离：A18.1† → A18.1</text>
+<text x="62" y="522" fill="#737b8d" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif" font-size="11">原件只读 · 永不修改</text>
+<text x="340" y="132" fill="#a8b1c4" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif" font-size="12.5" font-weight="700">规则台 · 12 条规则，依据决定封顶</text>
+<rect x="340" y="146" width="460" height="104" rx="16" fill="#1b2231" stroke="#2e374b" stroke-width="1.5" filter="url(#soft)"/>
+<rect x="341" y="160" width="4" height="76" rx="2" fill="#ff8f85"/>
+<rect x="356" y="157" width="55.0" height="20" rx="10.0" fill="#2c1a1e" stroke="#ff8f85" stroke-width="1.2"/>
+<text x="364" y="170.74" fill="#ff8f85" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif" font-size="11" font-weight="700">≤ error</text>
+<text x="421.0" y="175" fill="#8496f5" font-family="'Consolas','SFMono-Regular','Menlo',ui-monospace,monospace" font-size="13" font-weight="700">direct</text>
+<text x="470.0" y="175" fill="#737b8d" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif" font-size="13">·</text>
+<text x="480.0" y="175" fill="#a8b1c4" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif" font-size="13">直接条款</text>
+<rect x="356" y="193" width="58.0" height="24" rx="12.0" fill="#2c1a1e" stroke="#ff8f85" stroke-width="1.2"/>
+<text x="364" y="209.42" fill="#ff8f85" font-family="'Consolas','SFMono-Regular','Menlo',ui-monospace,monospace" font-size="13" font-weight="700">IC-001</text>
+<rect x="420.0" y="193" width="58.0" height="24" rx="12.0" fill="#2c1a1e" stroke="#ff8f85" stroke-width="1.2"/>
+<text x="428.0" y="209.42" fill="#ff8f85" font-family="'Consolas','SFMono-Regular','Menlo',ui-monospace,monospace" font-size="13" font-weight="700">IC-003</text>
+<rect x="484.0" y="193" width="58.0" height="24" rx="12.0" fill="#2a2216" stroke="#d9a441" stroke-width="1.2"/>
+<text x="492.0" y="209.42" fill="#d9a441" font-family="'Consolas','SFMono-Regular','Menlo',ui-monospace,monospace" font-size="13" font-weight="700">IC-005</text>
+<rect x="548.0" y="193" width="58.0" height="24" rx="12.0" fill="#2c1a1e" stroke="#ff8f85" stroke-width="1.2"/>
+<text x="556.0" y="209.42" fill="#ff8f85" font-family="'Consolas','SFMono-Regular','Menlo',ui-monospace,monospace" font-size="13" font-weight="700">IC-007</text>
+<rect x="612.0" y="193" width="58.0" height="24" rx="12.0" fill="#2c1a1e" stroke="#ff8f85" stroke-width="1.2"/>
+<text x="620.0" y="209.42" fill="#ff8f85" font-family="'Consolas','SFMono-Regular','Menlo',ui-monospace,monospace" font-size="13" font-weight="700">IC-009</text>
+<rect x="676.0" y="193" width="58.0" height="24" rx="12.0" fill="#2c1a1e" stroke="#ff8f85" stroke-width="1.2"/>
+<text x="684.0" y="209.42" fill="#ff8f85" font-family="'Consolas','SFMono-Regular','Menlo',ui-monospace,monospace" font-size="13" font-weight="700">IC-011</text>
+<text x="356" y="235" fill="#737b8d" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif" font-size="11">读：编码形态 · 剑星配对 · 主诊断栏 · 手术编码</text>
+<rect x="360" y="262" width="440" height="104" rx="16" fill="#1b2231" stroke="#2e374b" stroke-width="1.5" filter="url(#soft)"/>
+<rect x="361" y="276" width="4" height="76" rx="2" fill="#d9a441"/>
+<rect x="376" y="273" width="54.0" height="20" rx="10.0" fill="#2a2216" stroke="#d9a441" stroke-width="1.2"/>
+<text x="384" y="286.74" fill="#d9a441" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif" font-size="11" font-weight="700">≤ warn</text>
+<text x="440.0" y="291" fill="#8496f5" font-family="'Consolas','SFMono-Regular','Menlo',ui-monospace,monospace" font-size="13" font-weight="700">derived-from-principle</text>
+<text x="601.0" y="291" fill="#737b8d" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif" font-size="13">·</text>
+<text x="611.0" y="291" fill="#a8b1c4" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif" font-size="13">原则性条款</text>
+<rect x="376" y="309" width="58.0" height="24" rx="12.0" fill="#2a2216" stroke="#d9a441" stroke-width="1.2"/>
+<text x="384" y="325.42" fill="#d9a441" font-family="'Consolas','SFMono-Regular','Menlo',ui-monospace,monospace" font-size="13" font-weight="700">IC-002</text>
+<rect x="440.0" y="309" width="58.0" height="24" rx="12.0" fill="#2a2216" stroke="#d9a441" stroke-width="1.2"/>
+<text x="448.0" y="325.42" fill="#d9a441" font-family="'Consolas','SFMono-Regular','Menlo',ui-monospace,monospace" font-size="13" font-weight="700">IC-006</text>
+<rect x="504.0" y="309" width="58.0" height="24" rx="12.0" fill="#232a38" stroke="#98a2b3" stroke-width="1.2"/>
+<text x="512.0" y="325.42" fill="#98a2b3" font-family="'Consolas','SFMono-Regular','Menlo',ui-monospace,monospace" font-size="13" font-weight="700">IC-008</text>
+<rect x="568.0" y="309" width="58.0" height="24" rx="12.0" fill="#2a2216" stroke="#d9a441" stroke-width="1.2"/>
+<text x="576.0" y="325.42" fill="#d9a441" font-family="'Consolas','SFMono-Regular','Menlo',ui-monospace,monospace" font-size="13" font-weight="700">IC-012</text>
+<text x="376" y="351" fill="#737b8d" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif" font-size="11">读：诊断重复 · 入院病情 · 主诉与名称 · 第十八章</text>
+<rect x="380" y="378" width="420" height="104" rx="16" fill="#1b2231" stroke="#2e374b" stroke-width="1.5" filter="url(#soft)"/>
+<rect x="381" y="392" width="4" height="76" rx="2" fill="#98a2b3"/>
+<rect x="396" y="389" width="48.0" height="20" rx="10.0" fill="#232a38" stroke="#98a2b3" stroke-width="1.2"/>
+<text x="404" y="402.74" fill="#98a2b3" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif" font-size="11" font-weight="700">≤ info</text>
+<text x="454.0" y="407" fill="#8496f5" font-family="'Consolas','SFMono-Regular','Menlo',ui-monospace,monospace" font-size="13" font-weight="700">institutional-configuration</text>
+<text x="650.0" y="407" fill="#737b8d" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif" font-size="13">·</text>
+<text x="660.0" y="407" fill="#a8b1c4" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif" font-size="13">本机构配置</text>
+<rect x="396" y="425" width="58.0" height="24" rx="12.0" fill="#232a38" stroke="#98a2b3" stroke-width="1.2"/>
+<text x="404" y="441.42" fill="#98a2b3" font-family="'Consolas','SFMono-Regular','Menlo',ui-monospace,monospace" font-size="13" font-weight="700">IC-004</text>
+<rect x="460.0" y="425" width="58.0" height="24" rx="12.0" fill="#232a38" stroke="#98a2b3" stroke-width="1.2"/>
+<text x="468.0" y="441.42" fill="#98a2b3" font-family="'Consolas','SFMono-Regular','Menlo',ui-monospace,monospace" font-size="13" font-weight="700">IC-010</text>
+<text x="396" y="467" fill="#737b8d" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif" font-size="11">读：星号形式开关 · 诊断名称开关</text>
+<rect x="340" y="496" width="460" height="44" rx="14" fill="#202839" stroke="#2e374b" stroke-width="1.2"/>
+<text x="356" y="514" fill="#a8b1c4" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif" font-size="11">命中 → issues[]；前置条件不满足 → skipped[] 并写明原因。</text>
+<text x="356" y="532" fill="#737b8d" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif" font-size="11">三层 = 依据类型（左上角为封顶）；chip 颜色 = 该条自身的严重级。</text>
+<rect x="830" y="112" width="226" height="184" rx="18" fill="#1b2231" stroke="#2e374b" stroke-width="1.5" filter="url(#soft)"/>
+<text x="846" y="140" fill="#f0f3f9" font-family="'Consolas','SFMono-Regular','Menlo',ui-monospace,monospace" font-size="15" font-weight="700">issues[]</text>
+<rect x="1004.0" y="124" width="36.0" height="19" rx="9.5" fill="#202839"/>
+<text x="1012.0" y="137.24" fill="#8496f5" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif" font-size="11">2 条</text>
+<text x="846" y="160" fill="#737b8d" font-family="'Consolas','SFMono-Regular','Menlo',ui-monospace,monospace" font-size="11">locator · found · expected</text>
+<text x="846" y="188" fill="#ff8f85" font-family="'Consolas','SFMono-Regular','Menlo',ui-monospace,monospace" font-size="13" font-weight="700">IC-001</text>
+<rect x="894.0" y="175" width="42.0" height="18" rx="9.0" fill="#2c1a1e" stroke="#ff8f85" stroke-width="1.2"/>
+<text x="900.0" y="187.57" fill="#ff8f85" font-family="'Consolas','SFMono-Regular','Menlo',ui-monospace,monospace" font-size="10.5" font-weight="700">error</text>
+<text x="944.0" y="188" fill="#a8b1c4" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif" font-size="11">主要诊断</text>
+<text x="846" y="208" fill="#f0f3f9" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif" font-size="13">「急性心肌梗死」非 ICD-10 形式</text>
+<text x="846" y="236" fill="#98a2b3" font-family="'Consolas','SFMono-Regular','Menlo',ui-monospace,monospace" font-size="13" font-weight="700">IC-008</text>
+<rect x="894.0" y="223" width="36.0" height="18" rx="9.0" fill="#232a38" stroke="#98a2b3" stroke-width="1.2"/>
+<text x="900.0" y="235.57" fill="#98a2b3" font-family="'Consolas','SFMono-Regular','Menlo',ui-monospace,monospace" font-size="10.5" font-weight="700">info</text>
+<text x="938.0" y="236" fill="#a8b1c4" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif" font-size="11">主诉</text>
+<text x="846" y="256" fill="#f0f3f9" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif" font-size="13">与诊断名称无两字以上重叠</text>
+<text x="846" y="280" fill="#737b8d" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif" font-size="11">只定位，不下结论</text>
+<rect x="830" y="312" width="226" height="124" rx="18" fill="#1b2231" stroke="#2e374b" stroke-width="1.5" filter="url(#soft)"/>
+<text x="846" y="338" fill="#a8b1c4" font-family="'Consolas','SFMono-Regular','Menlo',ui-monospace,monospace" font-size="15" font-weight="700">skipped[]</text>
+<rect x="998.0" y="324" width="42.0" height="19" rx="9.5" fill="#202839"/>
+<text x="1006.0" y="337.24" fill="#a8b1c4" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif" font-size="11">10 条</text>
+<text x="846" y="358" fill="#737b8d" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif" font-size="11">每条都写明原因</text>
+<text x="846" y="384" fill="#f0f3f9" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif" font-size="12.5">IC-003 · pairs 未配置</text>
+<text x="846" y="404" fill="#f0f3f9" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif" font-size="12.5">IC-005 · correspondence 空</text>
+<text x="846" y="426" fill="#737b8d" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif" font-size="11">空的差异清单不读成通过</text>
+<rect x="830" y="452" width="226" height="88" rx="18" fill="#1b2231" stroke="#3fb950" stroke-width="1.8" filter="url(#soft)"/>
+<text x="846" y="478" fill="#f0f3f9" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif" font-size="14" font-weight="700">编码员复核</text>
+<text x="846" y="500" fill="#a8b1c4" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif" font-size="11">issues 与 skipped 一起读</text>
+<text x="846" y="518" fill="#3fb950" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif" font-size="11" font-weight="700">结论不在报告里</text>
+<text x="846" y="535" fill="#737b8d" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif" font-size="11">原件永不修改</text>
+<path d="M316 198 H328 V430" fill="none" stroke="#8496f5" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="328" y1="198" x2="338" y2="198" stroke="#8496f5" stroke-width="1.6" marker-end="url(#arr)"/>
+<line x1="328" y1="314" x2="358" y2="314" stroke="#8496f5" stroke-width="1.6" marker-end="url(#arr)"/>
+<line x1="328" y1="430" x2="378" y2="430" stroke="#8496f5" stroke-width="1.6" marker-end="url(#arr)"/>
+<line x1="800" y1="198" x2="806" y2="198" stroke="#8496f5" stroke-width="1.6"/>
+<line x1="800" y1="314" x2="806" y2="314" stroke="#8496f5" stroke-width="1.6"/>
+<line x1="800" y1="430" x2="806" y2="430" stroke="#8496f5" stroke-width="1.6"/>
+<path d="M806 430 V180" fill="none" stroke="#8496f5" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="806" y1="180" x2="828" y2="180" stroke="#8496f5" stroke-width="1.6" marker-end="url(#arr)"/>
+<line x1="806" y1="374" x2="828" y2="374" stroke="#8496f5" stroke-width="1.6" marker-end="url(#arr)"/>
+<path d="M1056 240 H1070 V496 H1058" fill="none" stroke="#3fb950" stroke-width="1.6" stroke-linecap="round" marker-end="url(#arr2)"/>
+<line x1="1056" y1="400" x2="1070" y2="400" stroke="#3fb950" stroke-width="1.6"/>
+<line x1="44" y1="564" x2="1056" y2="564" stroke="#2b3348" stroke-width="1"/>
+<text x="44" y="588" fill="#a8b1c4" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif" font-size="11.5">条款逐字引用：excerpt ≥ 8 字符；依据为原则或本机构配置的规则不得标 error；空 issues ≠ 没问题。</text>
+<text x="44" y="612" fill="#737b8d" font-family="'Microsoft YaHei','PingFang SC','Noto Sans CJK SC','Source Han Sans SC',sans-serif" font-size="11.5">config：rulesFile · disabledRules · onlyRules · skipNotes · timeoutMs ｜ 只读材料 · 无网络 · 不调用模型。</text>
+</svg>

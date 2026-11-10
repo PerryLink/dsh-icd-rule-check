@@ -1,6 +1,6 @@
 {
   "name": "dsh-icd-rule-check",
-  "version": "0.2.10",
+  "version": "0.2.13-reconcile.0",
   "description": "ICD 合并编码与星剑号配对提示（依据 GB/T 14396-2016 与公开的 ICD 使用说明，仅提示差异，不作出定性结论）",
   "type": "module",
   "main": "lib/index.mjs",
@@ -17,12 +17,13 @@
     "lib",
     "cordis.patch.yml",
     "README.md",
-    "README-zh.md",
+    "README.en.md",
     "locale/*.json",
     "icon.svg",
     "rules",
     "CHANGELOG.md",
     "SECURITY.md",
+    "docs/assets/*",
     "samples",
     "TROUBLESHOOTING.md",
     "screenshots.json",
@@ -54,7 +55,11 @@
       "writes": [],
       "network": false,
       "external": []
-    }
+    },
+    "capabilities": [
+      "tools:register"
+    ],
+    "labels": []
   },
   "keywords": [
     "deepseek-harness",
@@ -90,14 +95,14 @@
     "@deepseek-ai/schemastery": "^3.18.2"
   },
   "devDependencies": {
-    "@deepseek-ai/cordis": "4.0.5-alpha.1",
+    "@deepseek-ai/cordis": "4.0.5",
     "@deepseek-ai/dsh-package-manifest": "0.2.1-rc.2",
     "@deepseek-ai/dsh-tools": "0.2.1-rc.2",
     "@deepseek-ai/schemastery": "3.18.5",
     "@types/node": "^22.20.1",
     "vitest": "^5.0.5",
     "@deepseek-ai/dsh-working-directory": "0.2.1-rc.2",
-    "tsdown": "^0.22.14",
+    "tsdown": "^0.23.1",
     "typescript": "^5.9.3"
   },
   "dependencies": {}
