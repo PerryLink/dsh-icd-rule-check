@@ -43,6 +43,11 @@ dsh plugin --profile <name> add dsh-icd-rule-check
   <img src="docs/assets/dsh-icd-rule-check-flow-v5-light.svg" width="100%" alt="Estrutura do dsh-icd-rule-check: à esquerda um episódio codificado (os nomes de campo são o locator); ao centro, doze regras em três prateleiras de evidência — direct com teto error, derived-from-principle com teto warn, institutional-configuration com teto info; à direita, as listas issues[] e skipped[] chegam ao revisor — apenas diferenças, sem consultar catálogos, o original nunca é alterado">
 </picture>
 
+![dsh-icd-rule-check: execução real de terminal](docs/assets/dsh-icd-rule-check-demo.gif)
+
+*Repetição animada de uma execução real registrada neste repositório.*
+
+
 ## Instalação em três passos
 
 1. **Instale**:

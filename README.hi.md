@@ -43,6 +43,11 @@ dsh plugin --profile <name> add dsh-icd-rule-check
   <img src="docs/assets/dsh-icd-rule-check-flow-v5-light.svg" width="100%" alt="dsh-icd-rule-check की संरचना: बाईं ओर एक कूटबद्ध प्रकरण (फ़ील्ड नाम ही locator हैं); बीच में बारह नियम तीन साक्ष्य-स्तरों पर — direct की सीमा error, derived-from-principle की सीमा warn, institutional-configuration की सीमा info; दाईं ओर issues[] और skipped[] दोनों सूचियाँ समीक्षक तक पहुँचती हैं — केवल अंतर, कोई कूट-सूची खोज नहीं, मूल कभी नहीं बदलता">
 </picture>
 
+![dsh-icd-rule-check का असली टर्मिनल रन](docs/assets/dsh-icd-rule-check-demo.gif)
+
+*इस रिपॉज़िटरी में दर्ज असली रन का एनिमेटेड रीप्ले।*
+
+
 ## तीन चरणों में शुरुआत
 
 1. **इंस्टॉल करें**:

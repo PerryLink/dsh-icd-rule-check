@@ -115,6 +115,10 @@ coded inpatient episode (JSON · YAML) ──icd_rule_check──▶ rule pack I
 
 ### Examples
 
+![dsh-icd-rule-check: real terminal run](docs/assets/dsh-icd-rule-check-demo.gif)
+
+*Animated replay of a real run recorded in this repository.*
+
 These are the plugin's real entry points; install once, then call one.
 
 **Detailed output** — tool `icd_rule_check`, input:
