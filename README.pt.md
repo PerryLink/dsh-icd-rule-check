@@ -11,6 +11,8 @@
 
 Um verificador do DeepSeek Harness para codificadores médicos e controle de qualidade: o pacote de regras cita textualmente suas cláusulas públicas, relata apenas diferenças literais frente às cláusulas citadas, e nunca decide conformidade, não atribui responsabilidade, não procura códigos num catálogo nem toca no seu original.
 
+Última verificação: DeepSeek Harness `dsh-v0.2.3-alpha.1` (2026-11-22).
+
 [Instalar](#instalação-em-três-passos) · [Configuração](#configuração) · [FAQ](#faq) · [简体中文](README.md) · [English](README.en.md) · [Español](README.es.md) · [Português](README.pt.md) · [हिन्दी](README.hi.md)
 
 [![License](https://img.shields.io/badge/license-Apache--2.0-3366CC?style=flat-square&labelColor=2B3245)](LICENSE)
@@ -46,7 +48,6 @@ dsh plugin --profile <name> add dsh-icd-rule-check
 ![dsh-icd-rule-check: execução real de terminal](docs/assets/dsh-icd-rule-check-demo.gif)
 
 *Repetição animada de uma execução real registrada neste repositório.*
-
 
 ## Instalação em três passos
 
