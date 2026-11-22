@@ -7,6 +7,8 @@
 
 # dsh-icd-rule-check
 
+Current version `0.2.15`.
+
 **Check one coded inpatient episode for ICD-10 and ICD-9-CM-3 code form, duplicates, dagger/asterisk pairing and field completeness — and get back a list of what is inconsistent, where, and what to fix.**
 
 A DeepSeek Harness checker for medical coders and quality-control staff: the rule pack quotes its public clauses verbatim, reports only literal differences against the cited clauses, and never decides compliance, assigns liability, looks a code up in a catalogue, or touches your original.
